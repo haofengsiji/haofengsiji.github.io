@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+
+  
+  <title>VR-入门 | ZZ的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Why virtual isn’t real to your brainAuthor:  Michael Abrash 分享的价值邮件JC突发奇想，想在旧的苹果上实现一个高性能的线条绘制例程，所以就参考了一些作者和其他人的旧的文章。但发现无法理解某一篇文章，于是自己就从头构思了这个算法，收获很大，所以JC就发邮件跟作者讨论了自己的收获。 作者在交流中，表达了自己的想法：虽然有些人对站在巨人的肩上，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VR-入门">
+<meta property="og:url" content="http://yoursite.com/2020/03/19/VR-%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:site_name" content="ZZ的博客">
+<meta property="og:description" content="Why virtual isn’t real to your brainAuthor:  Michael Abrash 分享的价值邮件JC突发奇想，想在旧的苹果上实现一个高性能的线条绘制例程，所以就参考了一些作者和其他人的旧的文章。但发现无法理解某一篇文章，于是自己就从头构思了这个算法，收获很大，所以JC就发邮件跟作者讨论了自己的收获。 作者在交流中，表达了自己的想法：虽然有些人对站在巨人的肩上，">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200316211354593.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200316212046714.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200316212129783.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200316212211190.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200317163024485.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200317163250011.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200317163411434.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200317164309372.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200317175159715.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200317175217547.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200319115038375.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200319115110291.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200319115147024.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200319125915083.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200319130111730.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200319125943466.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200319130011132.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200319130135504.png">
+<meta property="article:published_time" content="2020-03-19T07:03:28.000Z">
+<meta property="article:modified_time" content="2020-03-19T08:31:52.181Z">
+<meta property="article:author" content="XZF">
+<meta property="article:tag" content="VR">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200316211354593.png">
+  
+    <link rel="alternate" href="/atom.xml" title="ZZ的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">ZZ的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">小菜鸟的学习之路</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-VR-入门" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/19/VR-%E5%85%A5%E9%97%A8/" class="article-date">
+  <time datetime="2020-03-19T07:03:28.000Z" itemprop="datePublished">2020-03-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      VR-入门
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Why-virtual-isn’t-real-to-your-brain"><a href="#Why-virtual-isn’t-real-to-your-brain" class="headerlink" title="Why virtual isn’t real to your brain"></a>Why virtual isn’t real to your brain</h2><p>Author:  Michael Abrash</p>
+<h3 id="分享的价值"><a href="#分享的价值" class="headerlink" title="分享的价值"></a>分享的价值</h3><h4 id="邮件"><a href="#邮件" class="headerlink" title="邮件"></a>邮件</h4><p>JC突发奇想，想在旧的苹果上实现一个高性能的线条绘制例程，所以就参考了一些作者和其他人的旧的文章。但发现无法理解某一篇文章，于是自己就从头构思了这个算法，收获很大，所以JC就发邮件跟作者讨论了自己的收获。</p>
+<p>作者在交流中，表达了自己的想法：虽然有些人对站在巨人的肩上，不能从头到尾的理解一件东西，持悲观的态度，但是作者更加感慨，能够分分钟收集到很多前人的知识确实是人类一件非常伟大的事情。</p>
+<h4 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h4><p>写分享这件事，很像囚徒困境悖论。因为，写分享很花时间，需要构思并整理到博客网页上，尤其是解释一个问题。然而却不能保证有人会来看你的文章并有所收获，于是最好的办法就是不写。</p>
+<p>然而作者并不这样认为，作者举了自己亲身的几个例子，来证明：写文章做分享是件很有意义的一件事情。</p>
+<p>以前，作者在一家小公司上班，在自己的工作中很出色，生活也很舒坦。但作者想做一些对世界有意义的事情。</p>
+<p>于是借助于PC games的出版商寻求合作编辑的机会，写了一些文章在PC games上发表。接下几年，投递编程者杂志（PJ），甚至当上了PJ的专栏作者。因为写作的契机，认识了副主席 Brad Silverberg（BS）。</p>
+<p>在BS的帮助下，有幸在微软工作，做了作者职业生涯中最有挑战和最令自己满意的工作。</p>
+<p>也是在JC（因为作者的文章认识了作者）的帮助下，有幸在ID工作，也是在ID的工作契机下，有幸认识Valve并合作, 最终在Valve公司中工作。</p>
+<p>作者总结了两点：<strong>1.你永远不知道写作能带来什么 2.但写作确实能带给我们想不到的机会</strong></p>
+<p>总之，写作做分享能带来不可预知的好处。这也是作者为什么坚持写博客和文章的原因。而且当你遇到别人能从你的文章有所收获，会觉得非常满足。</p>
+<h3 id="图片是如何展示的"><a href="#图片是如何展示的" class="headerlink" title="图片是如何展示的"></a>图片是如何展示的</h3><p>影响图片是否真实的三个因素：</p>
+<ol>
+<li>Tracking—right place</li>
+<li>latency—right time</li>
+<li>perception (eye and brain)</li>
+</ol>
+<p>视觉：即光子什么时候落到视网膜的什么位置上</p>
+<p>真实世界的光子是连续的，而显示器的光子是离散的（空间：像素离散；时间：一帧一帧刷新）。会造成一些问题，比如尾影（<strong>smearing</strong>），频闪(<strong>strobing</strong>)。 HMDs中叫 <strong>judder</strong>.</p>
+<p><strong>造成尾影</strong>：每帧的中像素点亮时间过长（即刷新率过低），眼睛相对于像素的移动距离过大。</p>
+<p><strong>假设</strong>，游戏角色在1/24帧中移动的距离是5cm,如果是48帧，那么每帧移动距离为2.5cm，帧数越大，画面越流畅。 即每帧的中像素点亮时间短（刷新率高），眼睛相对于像素的移动距离小。</p>
+<h3 id="Color-Fringing"><a href="#Color-Fringing" class="headerlink" title="Color Fringing"></a>Color Fringing</h3><p>So what happens if the eye is tracking a moving virtual object that’s exactly one pixel in size from left to right? </p>
+<p>坐标是相对于眼睛的坐标</p>
+<p>由于LCOS的特性 (color-sequential display)，白色图像移动的时候，我们的眼睛注视前方时，像素组成随时间的变化是：</p>
+<p><img src="/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200316211354593.png" alt="image-20200316211354593" style="zoom:50%;" /></p>
+<p>但是如果我们的眼睛追踪移动的图像时，像素线向下的速度加上相对眼睛向左的速度，就会发生倾斜 （如同下雨天，行驶的车, 窗上的雨滴，总是斜着打下来）。单帧中的像素线变化（因为眼睛跟踪着，所以一直在坐标中心）:</p>
+<p><img src="/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200316212046714.png" alt="image-20200316212046714" style="zoom:50%;" /></p>
+<p>原本的白色图像：</p>
+<p><img src="/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200316212129783.png" alt="image-20200316212129783" style="zoom:50%;" /></p>
+<p>就变成了Color Fringing：</p>
+<p><img src="/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200316212211190.png" alt="image-20200316212211190" style="zoom:50%;" /></p>
+<p>这种问题会在头戴式显示器中更加明显，因为人转头的速度可以达到 500 degree/second。120 d/s 的时候会有2 d的倾斜，这会产生一个100个像素的宽的Color Fringing。</p>
+<h2 id="Why-virtual-isn’t-real-to-your-brain-judder"><a href="#Why-virtual-isn’t-real-to-your-brain-judder" class="headerlink" title="Why virtual isn’t real to your brain: judder"></a>Why virtual isn’t real to your brain: judder</h2><p>Author:  Michael Abrash</p>
+<p>Color Fringing 的问题出现在color-sequential display上，所以解决的办法可以换一种显示方式比如 LCD, OLED, color-filter LCOS等能同时显示三种颜色的显示技术。</p>
+<p>无论每个像素在视网膜上照亮的时间长短，都会造成拖影，然后像素的跳跃，这会引起频闪现象（同时出现多个相同的图像）。这篇博客会解释这个原因。</p>
+<h3 id="为什么judder会发生"><a href="#为什么judder会发生" class="headerlink" title="为什么judder会发生"></a>为什么judder会发生</h3><p>时序空间图的坐标仍然是相对于眼睛的。</p>
+<p>真实世界，静止物体发出光子的运动变化</p>
+<p><img src="/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200317163024485.png" alt="image-20200317163024485" style="zoom:50%;" /></p>
+<p>移动物体</p>
+<p><img src="/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200317163250011.png" alt="image-20200317163250011" style="zoom:50%;" /></p>
+<p>—-使用同时显示三种颜色的显示技术</p>
+<p>虚拟移动物体（可见真实物体的色彩变化是流畅的）</p>
+<p><img src="/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200317163411434.png" alt="image-20200317163411434" style="zoom:50%;" /></p>
+<p>眼睛追踪虚拟的移动物体</p>
+<p><img src="/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200317164309372.png" alt="image-20200317164309372" style="zoom:50%;" /></p>
+<p>如果显示器有无限的刷新率，那么上图将会变成一条直线。（斜线变点，点连成线）。<strong>现实是，刷新率有限，在帧开始的时候，显示器点亮的是虚拟对象真实的位置，帧结束时，此时这个位置已经落后于真实的位置，每一帧都是如此。</strong>这便导致了图像的slide(滑动)，从一端跳到另一端（judder）。</p>
+<p>一个现象：视频慢放会看到虚拟图像会呆在原位能持续5帧，而物理标记已经移动了，如果你跟随着摄像头移动，那便会看到虚拟图像的频闪现象。</p>
+<p>还是2 degree的影响，这次是图像的抖动, 原本清晰的图片：<br><img src="/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200317175159715.png" alt="image-20200317175159715"></p>
+<p>会变成这样</p>
+<p><img src="/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200317175217547.png" alt="image-20200317175217547"></p>
+<p>虚拟图像的频闪也会出现，假设像素持续的时间为10ms，而人眼的处理时间是5ms,那么人就会看到2张一模一样的的图像，但是可能由于时延，错误等出现在不同位置。</p>
+<p>以上这些情况都会更加的明显在HMD中，1.HMD中FOV更广，可追踪的物体更远 2.头部快速的移动 3. 虚拟物体投影到真实物体，导致高期望的反差。</p>
+<p>一个有趣的现象：在电脑中，拖动任务框，任务框会变模糊，边框部分会出现跳动。而在现实中，移动作业本，仍能清楚地看清笔记本上的内容。</p>
+<h3 id="减少judder的方法"><a href="#减少judder的方法" class="headerlink" title="减少judder的方法"></a>减少judder的方法</h3><p>两种办法：1. 增加刷新率 2.降低持续时间</p>
+<h2 id="Down-the-VR-rabbit-hole-Fixing-judder"><a href="#Down-the-VR-rabbit-hole-Fixing-judder" class="headerlink" title="Down the VR rabbit hole: Fixing judder"></a>Down the VR rabbit hole: Fixing judder</h2><p>Author:  Michael Abrash</p>
+<h3 id="Judder显而易见的解决方法"><a href="#Judder显而易见的解决方法" class="headerlink" title="Judder显而易见的解决方法"></a>Judder显而易见的解决方法</h3><p>为了让显示更加真实，一个显而易见的方法是增加刷新率。</p>
+<p>下面这张时空图，显示了头戴显示器中当眼睛追踪虚拟物体时产生judder的现象：</p>
+<p><img src="/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200319115038375.png" alt="image-20200319115038375" style="zoom:50%;" /></p>
+<p>当追踪真实物体时：</p>
+<p><img src="/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200319115110291.png" alt="image-20200319115110291" style="zoom:50%;" /></p>
+<p>如果我们双倍的增加刷新率（持续时间降低，像素数增加），会得到：</p>
+<p><img src="/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200319115147024.png" alt="image-20200319115147024" style="zoom:50%;" /></p>
+<p>显然，斜线的宽度减小了，即降低了judder。如果无限增加刷新率，很显然，虚拟物体的追踪会无限接近现实物体。但这不是一个好的选择，但一般是<strong>在60Hz到∞中的某一个刷新率</strong>。</p>
+<p>刷新率的确定有很多因素，比如：<em>画面内容，分辨率，可视域，像素填充，显示技术，眼睛移动速度和眼睛的特性等。</em>100Hz接近可以，200Hz会有很大的提升但仍不够。对于1080p的90度可视域大概需要300到1000Hz，甚至更高。1000Hz可以减少很大一部分HMD问题，甚至可能包括晕3D。作者也不确定，作者也没见过1000Hz的HMD。</p>
+<h3 id="持续时间"><a href="#持续时间" class="headerlink" title="持续时间"></a>持续时间</h3><p>持续时间减少，不意味着像素数量增加。</p>
+<p>全持续模式（full-persistence）是像素在整个帧时间内持续点亮。许多OLED,LCD用的就是这种技术。</p>
+<p>full-persistence 时空图：</p>
+<p><img src="/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200319125915083.png" alt="image-20200319125915083" style="zoom:50%;" /></p>
+<p>追踪时：</p>
+<p>​    模糊的长度正比于眼睛的速度。1000Hz, 持续时间只有1ms, 短到足够消除大部分情况下的judder。但1000Hz显然是不现实的，降低持续时间更实际。</p>
+<p><img src="/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200319130111730.png" alt="image-20200319130111730" style="zoom:50%;" /></p>
+<p>half-persistence时空图：</p>
+<p><img src="/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200319125943466.png" alt="image-20200319125943466" style="zoom:50%;" /></p>
+<p>zero-persistence时空图：</p>
+<p><img src="/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200319130011132.png" alt="image-20200319130011132" style="zoom:50%;" /></p>
+<p>追踪时（点与点之间的距离太远了，会导致频闪）：</p>
+<p><img src="/2020/03/19/VR-%E5%85%A5%E9%97%A8/image-20200319130135504.png" alt="image-20200319130135504" style="zoom:50%;" /></p>
+<p>可见，当持续时间降低时，像素的相对移动明显降低。zero-persistence$\rightarrow$ zero movement。 通常持续时间低于2ms，是足够了的。</p>
+<p>但低持续时间会带来其他的副作用</p>
+<h3 id="低持续时间的副作用"><a href="#低持续时间的副作用" class="headerlink" title="低持续时间的副作用"></a>低持续时间的副作用</h3><p>头部随意的转动的速度可以达到100 degrees/second， 这很容易使眼睛有一个相对于图像有一个很大的速度，从而导致频闪（同样的图像在不同的位置。）</p>
+<p>（高刷新率不仅降低持续时间，而且还降低了两帧之间图像移动的距离, 从而降低了频闪程度）</p>
+<p>事实上，频闪现象比之前好多了，降低了模糊，而且因为图像会落在视觉中心，场景的处理功率降低，低持续时间频闪就没有那么明显了。但场景仍然会有频闪现象。</p>
+<p>如果低持续时间还是有问题，那么增加刷新率。现有的方案，使场景变得blur，使连续帧之间的物体变得不是那么远。</p>
+<h3 id="Down-the-rabbit-hole"><a href="#Down-the-rabbit-hole" class="headerlink" title="Down the rabbit hole"></a>Down the rabbit hole</h3><p>第一个因素： <a href="https://www.youtube.com/watch?v=qIF3FRwbG6Y" target="_blank" rel="noopener">saccadic masking</a> (眼跳屏蔽)，<strong>当眼睛扫视时，眼睛会自动屏蔽掉那些模糊的区域，然而，当像素是低持续时间时，由于扫描中的图像跟扫描前的图像和扫描后的图像一样清晰，抑制了眼跳屏蔽现象，导致频闪。</strong></p>
+<p>第二个因素：眼睛和脑一直需要一个<strong>参考帧</strong>去处理输入到视网膜上的数据。 <strong>当眼睛扫描的时候，正常是由于眼跳屏蔽是没有中间参考帧的。但由于低持续时间的眼跳屏蔽的抑制，出现中间参考帧，这就使得没有哪一个参考帧是正确的。图像位置被错误的定位了（比原来更不准确）。</strong></p>
+<p>低持续时间会有一些未预测到的结果。频闪导致制作的VR游戏世界出现晃动，不稳定。</p>
+<p><strong>从使用像素三色序列显示导致color fringing $\rightarrow$ 使用同时显示导致judder $\rightarrow$ low-persistence 导致视觉不稳定效应。</strong>从一个问题解决到一个新的问题，幸运的是，随着理解的深入，问题的规模正在减小，即使问题越来越有挑战性。</p>
+<p>VR的世界仍有许多难题，如果能看到VR繁荣的那一天，那将是伟大的。三篇博客介绍了一个新技术的中间阶段，作者希望我们能民百整个新技术是有潜力影响未来的几十年的。</p>
+<p>艰难但有趣，兴奋至极。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/03/19/VR-%E5%85%A5%E9%97%A8/" data-id="ck7yhykt50002bww43eyt8osh" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VR/" rel="tag">VR</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">ML-决策树</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ML/" rel="tag">ML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VR/" rel="tag">VR</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode-week/" rel="tag">leetcode-week</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ML/" style="font-size: 10px;">ML</a> <a href="/tags/VR/" style="font-size: 10px;">VR</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/leetcode-week/" style="font-size: 10px;">leetcode-week</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/03/19/VR-%E5%85%A5%E9%97%A8/">VR-入门</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/">ML-决策树</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/26/leetcode-week173/">leetcode-week173</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/25/%E5%8D%9A%E5%AE%A2-helloworld/">博客-helloworld</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/24/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 XZF<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
