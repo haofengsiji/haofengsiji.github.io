@@ -10,24 +10,24 @@
   <meta name="description" content="决策树(decision tree) 是根据已知情况的发生概率，构建树形结构的决策和他们可能的结果，来评价项目的风险，判断其可行性的决策分析方法。 基本流程举一个例子，比如我们如何判断西瓜的好坏？假设我们有10个西瓜，这10个西瓜就是我们的样本集$D$。西瓜还有特征，比如色泽如何，根蒂如何，敲声如何等，这些就是我们的特征集$A$。假设色泽如何为特征$A1$, 则$A_1$有三个特征值可以取分别是，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ML-决策树">
-<meta property="og:url" content="http://yoursite.com/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/index.html">
+<meta property="og:url" content="https://haofengsiji.github.io/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/index.html">
 <meta property="og:site_name" content="好风四季的博客">
 <meta property="og:description" content="决策树(decision tree) 是根据已知情况的发生概率，构建树形结构的决策和他们可能的结果，来评价项目的风险，判断其可行性的决策分析方法。 基本流程举一个例子，比如我们如何判断西瓜的好坏？假设我们有10个西瓜，这10个西瓜就是我们的样本集$D$。西瓜还有特征，比如色泽如何，根蒂如何，敲声如何等，这些就是我们的特征集$A$。假设色泽如何为特征$A1$, 则$A_1$有三个特征值可以取分别是，">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/image-20200127103310548.png">
-<meta property="og:image" content="http://yoursite.com/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/image-20200127103601553.png">
-<meta property="og:image" content="http://yoursite.com/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/image-20200127113523392.png">
-<meta property="og:image" content="http://yoursite.com/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/image-20200127113830327.png">
-<meta property="og:image" content="http://yoursite.com/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/image-20200127114103638.png">
-<meta property="og:image" content="http://yoursite.com/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/image-20200127114128393.png">
-<meta property="og:image" content="http://yoursite.com/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/image-20200127114252297.png">
-<meta property="og:image" content="http://yoursite.com/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/image-20200127114343033.png">
+<meta property="og:image" content="https://haofengsiji.github.io/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/image-20200127103310548.png">
+<meta property="og:image" content="https://haofengsiji.github.io/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/image-20200127103601553.png">
+<meta property="og:image" content="https://haofengsiji.github.io/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/image-20200127113523392.png">
+<meta property="og:image" content="https://haofengsiji.github.io/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/image-20200127113830327.png">
+<meta property="og:image" content="https://haofengsiji.github.io/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/image-20200127114103638.png">
+<meta property="og:image" content="https://haofengsiji.github.io/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/image-20200127114128393.png">
+<meta property="og:image" content="https://haofengsiji.github.io/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/image-20200127114252297.png">
+<meta property="og:image" content="https://haofengsiji.github.io/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/image-20200127114343033.png">
 <meta property="article:published_time" content="2020-01-27T01:58:47.000Z">
 <meta property="article:modified_time" content="2020-01-27T06:59:41.357Z">
 <meta property="article:author" content="XZF">
 <meta property="article:tag" content="ML">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/image-20200127103310548.png">
+<meta name="twitter:image" content="https://haofengsiji.github.io/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/image-20200127103310548.png">
   
     <link rel="alternate" href="/atom.xml" title="好风四季的博客" type="application/atom+xml">
   
@@ -74,7 +74,7 @@
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://haofengsiji.github.io"></form>
       </div>
     </div>
   </div>
@@ -191,7 +191,7 @@ I(X ; Y)=H(X)-H(X | Y)</script><p>没错，就是A的熵减去B条件下A的熵�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/" data-id="ck9n0k7t0000418w4epxt5dy6" class="article-share-link">Share</a>
+      <a data-url="https://haofengsiji.github.io/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/" data-id="ck9n0k7t0000418w4epxt5dy6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ML/" rel="tag">ML</a></li></ul>
