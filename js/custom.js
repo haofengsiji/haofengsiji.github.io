@@ -3,7 +3,7 @@ $(function () {
     var config = {
         apiKey: "AIzaSyBxHExd0F0bNtGdT71ufdghx7NbreBL00o",
         authDomain: "steadfast-helix-236511.firebaseapp.com",
-        databaseURL: "https://steadfast-helix-236511.firebaseio.com}",
+        databaseURL: "https://steadfast-helix-236511.firebaseio.com/",
     };
     firebase.initializeApp(config);
 
