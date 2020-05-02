@@ -68,6 +68,66 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-如何添加博客计数器-不蒜子" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/05/02/%E5%A6%82%E4%BD%95%E6%B7%BB%E5%8A%A0%E5%8D%9A%E5%AE%A2%E8%AE%A1%E6%95%B0%E5%99%A8-%E4%B8%8D%E8%92%9C%E5%AD%90/" class="article-date">
+  <time datetime="2020-05-02T13:40:26.000Z" itemprop="datePublished">2020-05-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/02/%E5%A6%82%E4%BD%95%E6%B7%BB%E5%8A%A0%E5%8D%9A%E5%AE%A2%E8%AE%A1%E6%95%B0%E5%99%A8-%E4%B8%8D%E8%92%9C%E5%AD%90/">如何添加博客计数器-不蒜子</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>自己用的是一种最简单的方法，插入大佬写好的网页脚本，只需要两行代码。</p>
+<p>还有一种方法是使用firebase后端数据库，暂时还不会配置…..</p>
+<ol>
+<li><p>首先引入不蒜子的脚本 busuanzi.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script <span class="keyword">async</span> src=<span class="string">"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"</span>&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这个脚本的位置可以放在<strong>hexo</strong>项目路径下的<code>\themes\landscape\layout\_partial\footer.ejs</code> 文件中，找一个位置插入脚本</p>
+<p><img src="/2020/05/02/%E5%A6%82%E4%BD%95%E6%B7%BB%E5%8A%A0%E5%8D%9A%E5%AE%A2%E8%AE%A1%E6%95%B0%E5%99%A8-%E4%B8%8D%E8%92%9C%E5%AD%90/image-20200502214924354.png" alt="image-20200502214924354" style="zoom:50%;" /></p>
+</li>
+<li><p>调用脚本id的返回值,得到想要的访问统计值，比如：</p>
+<p>站访问量：<code>id=&#39;busuanzi_value_site_pv&#39;</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;span id=<span class="string">"busuanzi_container_site_pv"</span>&gt;</span><br><span class="line">    本站总访问量&lt;span id=<span class="string">"busuanzi_value_site_pv"</span>&gt;&lt;<span class="regexp">/span&gt;次</span></span><br><span class="line"><span class="regexp">&lt;/</span>span&gt;</span><br></pre></td></tr></table></figure>
+<p>站访客量：<code>id=&quot;busuanzi_container_site_uv&quot;</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;span id=<span class="string">"busuanzi_container_site_uv"</span>&gt;</span><br><span class="line">  本站访客数&lt;span id=<span class="string">"busuanzi_value_site_uv"</span>&gt;&lt;<span class="regexp">/span&gt;人次</span></span><br><span class="line"><span class="regexp">&lt;/</span>span&gt;</span><br></pre></td></tr></table></figure>
+<p>页访问量: <code>id=&quot;busuanzi_container_page_pv&quot;</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;span id=<span class="string">"busuanzi_container_page_pv"</span>&gt;</span><br><span class="line">  本文总阅读量&lt;span id=<span class="string">"busuanzi_value_page_pv"</span>&gt;&lt;<span class="regexp">/span&gt;次</span></span><br><span class="line"><span class="regexp">&lt;/</span>span&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>总之一个脚本代码，一个显示，可以找到<code>layout\</code>文件下的任何位置插入。</p>
+<p>感慨一点，有时候觉得网上的大佬封装的太厉害，好多东西都是包装好了，感觉学到的东西太少了。</p>
+<p><strong>Reference:</strong></p>
+<p><a href="http://bryanyzhu.github.io/2015/12/17/all_about_hexo_III/" target="_blank" rel="noopener">http://bryanyzhu.github.io/2015/12/17/all_about_hexo_III/</a></p>
+<p><a href="http://ibruce.info/2015/04/04/busuanzi/" target="_blank" rel="noopener">http://ibruce.info/2015/04/04/busuanzi/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://haofengsiji.github.io/2020/05/02/%E5%A6%82%E4%BD%95%E6%B7%BB%E5%8A%A0%E5%8D%9A%E5%AE%A2%E8%AE%A1%E6%95%B0%E5%99%A8-%E4%B8%8D%E8%92%9C%E5%AD%90/" data-id="ck9ppcja10000qww4dpj9g7ur" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-2020-4-30" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/04/30/2020-4-30/" class="article-date">
@@ -433,98 +493,6 @@ I(X ; Y)=H(X)-H(X | Y)</script><p>没错，就是A的熵减去B条件下A的熵�
 
 
   
-    <article id="post-博客-helloworld" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/01/25/%E5%8D%9A%E5%AE%A2-helloworld/" class="article-date">
-  <time datetime="2020-01-25T15:57:29.000Z" itemprop="datePublished">2020-01-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/25/%E5%8D%9A%E5%AE%A2-helloworld/">博客-helloworld</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>​    今天花了大概三个小时，终于从有到无把自己的学习博客搭建起来了。很简单，但还是遇到了一些坑。总之记录一下自己学习的过程，知新。</p>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>​    使用的是github和hexo。Github 大家应该都知道，是一个全球的最大的开发者社区，主要功能是版本控制，大家可以免费的托管自己的代码，只要是开源的。Hexo 则是一个博客网站开发框架，让我们能够用markdown的格式来写博客，hexo则帮助我们将博客以网站的形式展示出来。</p>
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>​    1.创建github账号,以及版本控制器git</p>
-<p>​    2.下载开发软件</p>
-<p>​    3.设置Github博客主页</p>
-<p>​    4.hexo的使用</p>
-<p>​    5.hexo部署到Github</p>
-<hr>
-<h3 id="1-创建github账号-下载git"><a href="#1-创建github账号-下载git" class="headerlink" title="1.创建github账号,下载git."></a>1.创建github账号,下载git.</h3><p>​    github地址：<a href="https://github.com/只需要邮箱就可以。" target="_blank" rel="noopener">https://github.com/只需要邮箱就可以。</a></p>
-<p>​    git是版本控制器，提供类似linux的命令行，来进行版本的控制。小白也可以下载git desktop, git的图形化版本。git的基本的操作看官方的文档就可以，核心指令也就只有几个。</p>
-<p>​    git:<a href="https://git-scm.com/download/" target="_blank" rel="noopener">https://git-scm.com/download/</a></p>
-<p><img src="/2020/01/25/%E5%8D%9A%E5%AE%A2-helloworld/image-20200125224916019.png" alt=""></p>
-<p>​    git desktop:<a href="https://desktop.github.com/" target="_blank" rel="noopener">https://desktop.github.com/</a></p>
-<p><img src="/2020/01/25/%E5%8D%9A%E5%AE%A2-helloworld/image-20200125224838805.png" alt=""></p>
-<h3 id="2-下载开发软件"><a href="#2-下载开发软件" class="headerlink" title="2.下载开发软件"></a>2.下载开发软件</h3><h4 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a><strong>Node.js</strong></h4><p><img src="/2020/01/25/%E5%8D%9A%E5%AE%A2-helloworld/image-20200125225005104.png" alt=""></p>
-<p>​     检查是否安装成功：</p>
-<p>​        Win+R-&gt;cmd</p>
-<p>​        打开windows的command，输入<code>npm -v</code>, 可以看到版本号即安装成功。</p>
-<p><img src="/2020/01/25/%E5%8D%9A%E5%AE%A2-helloworld/image-20200125225908362.png" alt=""></p>
-<h4 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a><strong>hexo</strong></h4><p>​        如果类比node.js为python，那么hexo 就像numpy, matplotlib一样，是packgage。</p>
-<p>​        安装hexo, 使用command: <code>$ npm install -g hexo-cli</code></p>
-<p><img src="/2020/01/25/%E5%8D%9A%E5%AE%A2-helloworld/image-20200125230629720.png" alt=""></p>
-<p>​        检查是否安装成功：<code>$ hexo -v</code></p>
-<p><img src="/2020/01/25/%E5%8D%9A%E5%AE%A2-helloworld/image-20200125230946486.png" alt=""></p>
-<h3 id="3-设置github博客主页"><a href="#3-设置github博客主页" class="headerlink" title="3.设置github博客主页"></a>3.设置github博客主页</h3><h4 id="创建一个repository"><a href="#创建一个repository" class="headerlink" title="创建一个repository"></a>创建一个repository</h4><p>​        进入你的主页，就会看到如下图的内容，点击<code>New</code>,创建repository.</p>
-<p><img src="/2020/01/25/%E5%8D%9A%E5%AE%A2-helloworld/image-20200125231314911.png" alt=""></p>
-<p>​        repository的名字必须是你的 <strong>username.github.io</strong>，这样的你的博客网页才能够正常浏览。比如我的：</p>
-<p><img src="/2020/01/25/%E5%8D%9A%E5%AE%A2-helloworld/image-20200125231539366.png" alt=""></p>
-<p>​    进入的repository的设置，找到<strong>GitHub Pages</strong>子设置项，点击蓝色的链接，就可已选择自己的博客主页的风格主题。</p>
-<p><img src="/2020/01/25/%E5%8D%9A%E5%AE%A2-helloworld/image-20200125232056420.png" alt=""></p>
-<p><img src="/2020/01/25/%E5%8D%9A%E5%AE%A2-helloworld/image-20200125232218691.png" alt=""></p>
-<p>​        随便选一个，因为我们最终用的是hexo的主题。完成后在点击链接，就可以访问自己的github博客主页了。此时如果会html,javascript的话，就可以设计主页等等。但为了加速开发博客，我们将使用hexo博客框架。</p>
-<h3 id="4-Hexo的使用"><a href="#4-Hexo的使用" class="headerlink" title="4.Hexo的使用"></a>4.Hexo的使用</h3><h4 id="hexo初始化部署"><a href="#hexo初始化部署" class="headerlink" title="hexo初始化部署"></a>hexo初始化部署</h4><p>​        新建一个文件夹，比如<code>E:\study\program\blog</code>。在<code>blog</code>文件夹内，来做博客的开发。</p>
-<p>​        进入到该文件夹的路径下，点击右键打开</p>
-<p><img src="/2020/01/25/%E5%8D%9A%E5%AE%A2-helloworld/image-20200125232823333.png" alt=""></p>
-<p>​    这样就会有一个跟linux一模一样的命令行。在命令行内，输入<code>$ hexo init</code> 来初始化工程，你就会得到跟我一样如上图的那些文件了。然后输入<code>$ npm install</code>安装必要的组件。</p>
-<p><img src="/2020/01/25/%E5%8D%9A%E5%AE%A2-helloworld/image-20200125233250185.png" alt=""></p>
-<p>​    接着输入<code>$ hexo g</code>生成public的静态网页项目，然后输入<code>$hexo s</code>运行本地服务器（这一步，通常用来debug，调试用的）    </p>
-<p><img src="/2020/01/25/%E5%8D%9A%E5%AE%A2-helloworld/image-20200125233539986.png" alt=""></p>
-<p><img src="/2020/01/25/%E5%8D%9A%E5%AE%A2-helloworld/image-20200125233613324.png" alt=""></p>
-<p>​    在浏览器中输入<code>localhost:4000</code>，就可看到用hexo生成博客主页。主页还是挺好看的。</p>
-<p><img src="/2020/01/25/%E5%8D%9A%E5%AE%A2-helloworld/image-20200125233829904.png" alt=""></p>
-<h3 id="5-Hexo部署到Github"><a href="#5-Hexo部署到Github" class="headerlink" title="5.Hexo部署到Github"></a>5.Hexo部署到Github</h3><p>​    这一步需要使用到hexo的deploy功能。首先需要设置deploy参数。打开<code>blog/_config.yml</code>, 在文件的最后加入如下参数</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">	type: git</span><br><span class="line">	repository: https://github.com/haofengsiji/haofengsiji.github.io</span><br><span class="line">	branch: master</span><br></pre></td></tr></table></figure>
-<p>​    类型是git, repository是你的项目的地址, 版本分支：master。保存后，在git bash中输入：</p>
-<p><code>$ hexo g</code> 生成public的静态网页工程</p>
-<p><code>$ hexo s</code> 本地浏览器调试预览</p>
-<p><code>$ hexo d</code> 部署</p>
-<p>​    这样别人通过访问 <a href="https://yourusername.github.io" target="_blank" rel="noopener">https://yourusername.github.io</a> 就可以浏览你的博客了。</p>
-<p>​    创建一个新的博客命令：<code>$ hexo new post &quot;My New Post&quot;</code></p>
-<p><strong>references:</strong></p>
-<ol>
-<li><a href="https://godweiyang.com/2018/04/13/hexo-blog/" target="_blank" rel="noopener">https://godweiyang.com/2018/04/13/hexo-blog/</a></li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://haofengsiji.github.io/2020/01/25/%E5%8D%9A%E5%AE%A2-helloworld/" data-id="ck9o8b0lx000d98w450ih9kt3" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -553,7 +521,7 @@ I(X ; Y)=H(X)-H(X | Y)</script><p>没错，就是A的熵减去B条件下A的熵�
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ML/" style="font-size: 10px;">ML</a> <a href="/tags/VR/" style="font-size: 10px;">VR</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/diary/" style="font-size: 10px;">diary</a> <a href="/tags/leetcode-week/" style="font-size: 10px;">leetcode-week</a>
+      <a href="/tags/ML/" style="font-size: 10px;">ML</a> <a href="/tags/VR/" style="font-size: 10px;">VR</a> <a href="/tags/blog/" style="font-size: 20px;">blog</a> <a href="/tags/diary/" style="font-size: 10px;">diary</a> <a href="/tags/leetcode-week/" style="font-size: 10px;">leetcode-week</a>
     </div>
   </div>
 
@@ -562,7 +530,7 @@ I(X ; Y)=H(X)-H(X | Y)</script><p>没错，就是A的熵减去B条件下A的熵�
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li></ul>
     </div>
   </div>
 
@@ -573,6 +541,10 @@ I(X ; Y)=H(X)-H(X | Y)</script><p>没错，就是A的熵减去B条件下A的熵�
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2020/05/02/%E5%A6%82%E4%BD%95%E6%B7%BB%E5%8A%A0%E5%8D%9A%E5%AE%A2%E8%AE%A1%E6%95%B0%E5%99%A8-%E4%B8%8D%E8%92%9C%E5%AD%90/">如何添加博客计数器-不蒜子</a>
+          </li>
         
           <li>
             <a href="/2020/04/30/2020-4-30/">2020/4/30</a>
@@ -588,10 +560,6 @@ I(X ; Y)=H(X)-H(X | Y)</script><p>没错，就是A的熵减去B条件下A的熵�
         
           <li>
             <a href="/2020/01/26/leetcode-week173/">leetcode-week173</a>
-          </li>
-        
-          <li>
-            <a href="/2020/01/25/%E5%8D%9A%E5%AE%A2-helloworld/">博客-helloworld</a>
           </li>
         
       </ul>
