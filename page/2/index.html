@@ -68,6 +68,129 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-决策树" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/" class="article-date">
+  <time datetime="2020-01-27T01:58:47.000Z" itemprop="datePublished">2020-01-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/">ML-决策树</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>决策树(decision tree) 是根据已知情况的发生概率，构建树形结构的决策和他们可能的结果，来评价项目的风险，判断其可行性的决策分析方法。</p>
+<h2 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h2><p>举一个例子，比如我们如何判断西瓜的好坏？假设我们有10个西瓜，这10个西瓜就是我们的<strong>样本集</strong>$D$。西瓜还有特征，比如色泽如何，根蒂如何，敲声如何等，这些就是我们的<strong>特征集</strong>$A$。假设色泽如何为<strong>特征</strong>$A<em>1$, 则$A_1$有三个特征值可以取分别是，$a</em>{11}$:乌黑，$a<em>{12}$:青绿，$a</em>{13}$:浅白。$a_{1n}$ 即为特征$A_1$可取的值。样本集中是样本，比如某一个西瓜为样本$D_1{x,y}$, $x$ 是西瓜的<strong>特征向量</strong>，描述西瓜的特征，$y$则是西瓜的标签（是好瓜，还是坏瓜）。 最终根据已知情况的发生概率，我们可以得出一个西瓜决策树：</p>
+<p><img src="/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/image-20200127103310548.png" alt="image-20200127103310548"></p>
+<p>具体如何操作呢，下面便是算法流程，运用的算法思想是分而治之(divide-and-conquer)(ps:所以分而治之的算法很重要，我第一次面试的时候，还不知道这个算法)。</p>
+<p><img src="/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/image-20200127103601553.png" alt="image-20200127103601553"></p>
+<p>递归，首先要考虑的是特殊情况返回，因为不满足归的条件，你才可以去递，要不然会死循环。决策树有<strong>三种返回情况</strong>：</p>
+<ol>
+<li>如果（剩下的）样本集中的西瓜都是好瓜（或坏瓜），不需要再划分了，那么可以把节点划分为好瓜（或者坏瓜）叶节点返回。</li>
+<li>如果特征集都用完了，色泽，根蒂，敲声都用过了，没得特征帮助我们判断了，或者样本集中（剩下的）所有的特征的取值都相同，总之没有依据帮助我们继续划分，那么可以把节点标记为叶子节点，类别为样本集中数量最多的类。</li>
+<li>找到一个最优划分特征了，结果有一个特征值，没有样本了。那这个分支节点就返回样本集中数量最多的类。</li>
+</ol>
+<p>PS：情况2 和 3 的分类返回，是不一样的，情况2 是返回当前节点的样本数量最多的类别，是后验概率， 情况3 是返回父节点的分布最为当前节点的先验分布。 先验是经验，后验是统计。</p>
+<p>还有一点，如何从$A$中选择最优划分特征集呢？ 这就要引入三种算法，<strong>ID3</strong>,<strong>CD4.5</strong>,<strong>CART</strong>。ID3是根据<strong>信息增益</strong>（互信息）来划分，CD4.5是根据<strong>信息增益比</strong>，CART是根据<strong>基尼系数</strong>，他们是按顺序改进的。</p>
+<h2 id="基础知识-熵，联合熵，条件熵，互信息（信息增益）"><a href="#基础知识-熵，联合熵，条件熵，互信息（信息增益）" class="headerlink" title="基础知识-熵，联合熵，条件熵，互信息（信息增益）"></a>基础知识-熵，联合熵，条件熵，互信息（信息增益）</h2><p>熵，是来衡量信息的不确定性。熵值越大，信息的不确定性越大。另外，熵越大，信息量也就越大。比如示波器一直是直线，熵为零。但是一会来个高电平，一会来个低电平，给你发个SOS，这个信息量就比直线的大了。同样，直线的信息不确定性就很小，你可以猜测下一秒还是直线；但一会来高电平，一会来低电平，你还有把握猜直线么？</p>
+<p><strong>熵</strong>，A事件的不确定性，公式：</p>
+<script type="math/tex; mode=display">
+H(X)=-\sum_{i=1}^{n} p_{i} \log p_{i}</script><p><strong>联合熵</strong>，A,B两个事件组合的事件的不确定性，公式：</p>
+<script type="math/tex; mode=display">
+H(X, Y)=-\sum_{i=1}^{n} p\left(x_{i}, y_{i}\right) \log p\left(x_{i}, y_{i}\right)</script><p><strong>条件熵</strong>，A事件发生的条件下，B事件的不确定性，公式：</p>
+<script type="math/tex; mode=display">
+H(X | Y)=-\sum_{i=1}^{n} p\left(x_{i}, y_{i}\right) \log p\left(x_{i} | y_{i}\right)</script><p><strong>互信息（信息增益）</strong>，A事件发生的条件下，B事件的不确定性的减少，公式：</p>
+<script type="math/tex; mode=display">
+I(X ; Y)=H(X)-H(X | Y)</script><p>没错，就是A的熵减去B条件下A的熵（条件熵）</p>
+<p><img src="/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/image-20200127113523392.png" alt="image-20200127113523392"></p>
+<h2 id="ID3"><a href="#ID3" class="headerlink" title="ID3"></a>ID3</h2><p>1970年，一个叫昆兰（<strong>John Ross Quinlan</strong>）的大牛找到了在信息论中的熵来度量决策树的决策选择过程，它的一出现，就因简介高效而轰动一时。</p>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>我们仍然以西瓜为例，假设有数据集如下：</p>
+<p><img src="/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/image-20200127113830327.png" alt="image-20200127113830327"></p>
+<p>根据信息增益来选择划分特征。</p>
+<p><img src="/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/image-20200127114103638.png" alt="image-20200127114103638"></p>
+<p><img src="/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/image-20200127114128393.png" alt="image-20200127114128393"></p>
+<p><img src="/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/image-20200127114252297.png" alt="image-20200127114252297"></p>
+<p><img src="/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/image-20200127114343033.png" alt="image-20200127114343033"></p>
+<p>以上就是ID3在西瓜数据集上的例子。</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>ID3提供了新的思路，但还有改进的地方。</p>
+<ol>
+<li><p>没有考虑连续值，比如长度，密度，无法应用ID3。</p>
+</li>
+<li><p>采用信息增益最大建立决策树的节点，很快就有人发现，同样条件下，ID3倾向于选择特征值数量多的特征作为节点。比如一个变量有2个值，概率都是1/2，另一个三个值，概率都是1/3。这两个变量都是完全不确定的变量，但取三的比取二的信息增益比大。</p>
+</li>
+<li><p>没有对缺失值做考虑</p>
+</li>
+<li>没有考虑过拟合</li>
+</ol>
+<p>对于以上问题，昆兰提出了CD4.5做出优化，为什么不叫ID呢，因为ID3一出，过于火爆，很快就有人把ID4.0,ID5.0占了，昆兰另辟蹊径取名CD4.0，CD4.5是CD4.0的改进版。</p>
+<h2 id="CD4-5"><a href="#CD4-5" class="headerlink" title="CD4.5"></a>CD4.5</h2><p>对于第一个问题，如何解决连续值的问题？</p>
+<p>​    昆兰将连续特征离散化，比如有m个样本，将样本按照连续值排序后，连续值为a1,a2,…,am，我们每次取两个做一次划分点，$T<em>{i}=\frac{a</em>{i}+a_{i+1}}{2}$，则会得到m-1个划分点。对于这m-1个点，分别计算以该点作为二元分类点时的信息增益。选择信息增益最大的点作为该连续特征的二元离散分类点。要注意的是，与离散属性不同的是，如果当前节点为连续属性，则该属性后面还可以参与子节点的产生选择过程。</p>
+<p>对于第二个问题，如何解决使用信息增益带来的问题？</p>
+<p>​    既然特征的值的数量会对我们选取特征产生偏见，那我们就消除特征值的数量带来的偏见。用信息增益除以特征熵。特征值越多，特征熵就越大，这样我们就消除了特征值的数量带来的影响。</p>
+<p><strong>信息增益比公式</strong>：</p>
+<script type="math/tex; mode=display">
+\text { Gain ratio }(D, a)=\frac{\operatorname{Gain}(D, a)}{\operatorname{IV}(a)}</script><p>其中IV代表固有值（intrinsic value）：</p>
+<script type="math/tex; mode=display">
+\mathrm{IV}(a)=-\sum_{v=1}^{V} \frac{\left|D^{v}\right|}{|D|} \log _{2} \frac{\left|D^{v}\right|}{|D|}</script><p>对于第三个问题，如何处理缺失值的问题？</p>
+<p>​    有两种情况：</p>
+<pre><code> 1.    选择最优划分特征的时候存在缺失值
+      1.    对于第一个子问题，CD4.5会将数据集划分为两部分，$D_1$是特征A没有缺失的数据集，$D_2$是特征A有缺失的数据集，所有样本都会有一个初始化的权重，初始值为1。只用$D_1$来计算特征A的加权后的信息增益比，在乘以一个系数，这个系数是$D_1$加权样本占加权总样本的比例。
+ 2.    选择划分特征后，该特征存在缺失值
+      1.    对于第二个子问题，CD4.5会将有缺失特征A的样本划分入所有子节点，不过该缺失特征样本的权重会按无缺失样本的比例来分配。比如缺失特征A的样本a之前权重为1，特征A有3个特征值A1,A2,A3。 3个特征值对应的无缺失A特征的样本个数为2,3,4.则a同时划分入A1，A2，A3。对应权重调节为2/9,3/9, 4/9。
+</code></pre><p>对于第四个问题，如何解决过拟合</p>
+<p>​    引入剪枝，具体到CART中介绍。</p>
+<h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><ol>
+<li>由于决策树算法非常容易过拟合，因此对于生成的决策树必须要进行剪枝。剪枝的算法有非常多，C4.5的剪枝方法有优化的空间。思路主要是两种，一种是预剪枝，即在生成决策树的时候就决定是否剪枝。另一个是后剪枝，即先生成决策树，再通过交叉验证来剪枝。后面在下篇讲CART树的时候我们会专门讲决策树的减枝思路，主要采用的是后剪枝加上交叉验证选择最合适的决策树</li>
+<li>C4.5生成的是多叉树，即一个父节点可以有多个节点。很多时候，在计算机中二叉树模型会比多叉树运算效率高。如果采用二叉树，可以提高效率</li>
+<li>C4.5只能用于分类，如果能将决策树用于回归的话可以扩大它的使用范围。</li>
+<li>C4.5由于使用了熵模型，里面有大量的耗时的对数运算,如果是连续值还有大量的排序运算。如果能够加以模型简化可以减少运算强度但又不牺牲太多准确性的话，那就更好了。</li>
+</ol>
+<h2 id="CART"><a href="#CART" class="headerlink" title="CART"></a>CART</h2><p>CART分类树算法使用基尼系数来代替信息增益比，基尼系数代表了模型的不纯度，基尼系数越小，则不纯度越低，特征越好。这和信息增益(比)是相反的。</p>
+<p>基尼系数的公式：</p>
+<script type="math/tex; mode=display">
+\operatorname{Gini}(p)=\sum_{k=1}^{K} p_{k}\left(1-p_{k}\right)=1-\sum_{k=1}^{K} p_{k}^{2}</script><p>特别的，对于样本D,如果根据特征A的某个值a,把D分成D1和D2两部分，则在特征A的条件下，D的基尼系数：</p>
+<script type="math/tex; mode=display">
+\operatorname{Gini}(D, A)=\frac{\left|D_{1}\right|}{|D|} \operatorname{Gini}\left(D_{1}\right)+\frac{\left|D_{2}\right|}{|D|} \operatorname{Gini}\left(D_{2}\right)</script><h2 id="连续特征，离散特征的处理"><a href="#连续特征，离散特征的处理" class="headerlink" title="连续特征，离散特征的处理"></a>连续特征，离散特征的处理</h2><p>对于CART分类树连续值的处理问题，其思想和C4.5是相同的，都是将连续的特征离散化。唯一的区别在于在选择划分点时的度量方式不同，C4.5使用的是信息增益，则CART分类树使用的是基尼系数。</p>
+<p>具体的思路如下，比如m个样本的连续特征A有m个，从小到大排列为a1,a2,…,am,则CART算法取相邻两样本值的中位数，一共取得m-1个划分点，其中第i个划分点Ti表示为：$T<em>{i}=\frac{a</em>{i}+a_{i+1}}{2}$。对于这m-1个点，分别计算以该点作为二元分类点时的基尼系数。选择基尼系数最小的点作为该连续特征的二元离散分类点。比如取到的基尼系数最小的点为at,则小于at的值为类别1，大于at的值为类别2，这样我们就做到了连续特征的离散化。要注意的是，与离散属性不同的是，如果当前节点为连续属性，则该属性后面还可以参与子节点的产生选择过程。</p>
+<p>对于CART分类树离散值的处理问题，采用的思路是不停的二分离散特征。</p>
+<p>回忆下ID3或者C4.5，如果某个特征A被选取建立决策树节点，如果它有A1,A2,A3三种类别，我们会在决策树上一下建立一个三叉的节点。这样导致决策树是多叉树。但是CART分类树使用的方法不同，他采用的是不停的二分，还是这个例子，CART分类树会考虑把A分成{A1}和{A2,A3},{A2}和{A1,A3},{A3}和{A1,A2}三种情况，找到基尼系数最小的组合，比如{A2}和{A1,A3},然后建立二叉树节点，一个节点是A2对应的样本，另一个节点是{A1,A3}对应的节点。从描述可以看出，如果离散特征A有n个取值，则可能的组合有n(n-1)/2种。同时，由于这次没有把特征A的取值完全分开，后面我们还有机会在子节点继续选择到特征A来划分A1和A3。这和ID3或者C4.5不同，在ID3或者C4.5的一棵子树中，离散特征只会参与一次节点的建立。</p>
+<h3 id="CART回归树"><a href="#CART回归树" class="headerlink" title="CART回归树"></a>CART回归树</h3><p>CART回归树和CART分类树的建立算法大部分是类似的，所以这里我们只讨论CART回归树和CART分类树的建立算法不同的地方。</p>
+<p>首先，我们要明白，什么是回归树，什么是分类树。两者的区别在于样本输出，如果样本输出是离散值，那么这是一颗分类树。如果果样本输出是连续值，那么那么这是一颗回归树。</p>
+<p>除了概念的不同，CART回归树和CART分类树的建立和预测的区别主要有下面两点：</p>
+<p>1)连续值的处理方法不同</p>
+<p>2)决策树建立后做预测的方式不同。</p>
+<p>对于连续值的处理，我们知道CART分类树采用的是用基尼系数的大小来度量特征的各个划分点的优劣情况。这比较适合分类模型，但是对于回归模型，我们使用了常见的均方差的度量方式，CART回归树的度量目标是，对于任意划分特征A，对应的任意划分点s两边划分成的数据集D1和D2，求出使D1和D2各自集合的均方差最小，同时D1和D2的均方差之和最小所对应的特征和特征值划分点。表达式为：</p>
+<script type="math/tex; mode=display">
+\min \left[\min _{x_{i} \in D_{1}(A, s)}\left(y_{i}-c_{1}\right)^{2}+\min _{x_{i} \in D_{2}(A, s)}\left(y_{i}-c_{2}\right)^{2}\right]</script><p>其中，c1为D1数据集的样本输出均值，c2为D2数据集的样本输出均值。</p>
+<p>对于决策树建立后做预测的方式，上面讲到了CART分类树采用叶子节点里概率最大的类别作为当前节点的预测类别。而回归树输出不是类别，它采用的是用最终叶子的均值或者中位数来预测输出结果。</p>
+<p>除了上面提到了以外，CART回归树和CART分类树的建立算法和预测没有什么区别。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://haofengsiji.github.io/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/" data-id="ck9o8b0lg000498w48ze92oq2" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ML/" rel="tag">ML</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-leetcode-week173" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/01/26/leetcode-week173/" class="article-date">
@@ -303,7 +426,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ML/" style="font-size: 10px;">ML</a> <a href="/tags/NLP/" style="font-size: 10px;">NLP</a> <a href="/tags/VR/" style="font-size: 10px;">VR</a> <a href="/tags/blog/" style="font-size: 20px;">blog</a> <a href="/tags/diary/" style="font-size: 20px;">diary</a> <a href="/tags/leetcode-week/" style="font-size: 10px;">leetcode-week</a>
+      <a href="/tags/ML/" style="font-size: 10px;">ML</a> <a href="/tags/NLP/" style="font-size: 20px;">NLP</a> <a href="/tags/VR/" style="font-size: 10px;">VR</a> <a href="/tags/blog/" style="font-size: 20px;">blog</a> <a href="/tags/diary/" style="font-size: 20px;">diary</a> <a href="/tags/leetcode-week/" style="font-size: 10px;">leetcode-week</a>
     </div>
   </div>
 
@@ -325,6 +448,10 @@
       <ul>
         
           <li>
+            <a href="/2020/05/07/TF-IDF/">TF-IDF</a>
+          </li>
+        
+          <li>
             <a href="/2020/05/03/Kaggle-Courses-Intro-to-NLP/">Kaggle Courses: Intro to NLP</a>
           </li>
         
@@ -338,10 +465,6 @@
         
           <li>
             <a href="/2020/03/19/VR-%E5%85%A5%E9%97%A8/">VR-入门</a>
-          </li>
-        
-          <li>
-            <a href="/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/">ML-决策树</a>
           </li>
         
       </ul>
