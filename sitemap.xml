@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://haofengsiji.github.io/2020/05/07/TF-IDF/</loc>
+    
+    <lastmod>2020-05-08T04:19:55.810Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://haofengsiji.github.io/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/</loc>
     
     <lastmod>2020-05-08T03:34:27.164Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>https://haofengsiji.github.io/2020/05/08/Bag-of-Words/</loc>
     
     <lastmod>2020-05-08T03:18:38.559Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://haofengsiji.github.io/2020/05/07/TF-IDF/</loc>
-    
-    <lastmod>2020-05-08T02:27:40.386Z</lastmod>
     
   </url>
   

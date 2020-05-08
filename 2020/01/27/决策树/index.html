@@ -7,12 +7,12 @@
   
   <title>ML-决策树 | 好风四季的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="决策树(decision tree) 是根据已知情况的发生概率，构建树形结构的决策和他们可能的结果，来评价项目的风险，判断其可行性的决策分析方法。 基本流程举一个例子，比如我们如何判断西瓜的好坏？假设我们有10个西瓜，这10个西瓜就是我们的样本集$D$。西瓜还有特征，比如色泽如何，根蒂如何，敲声如何等，这些就是我们的特征集$A$。假设色泽如何为特征$A1$, 则$A_1$有三个特征值可以取分别是，">
+  <meta name="description" content="决策树(decision tree) 是根据已知情况的发生概率，构建树形结构的决策和他们可能的结果，来评价项目的风险，判断其可行性的决策分析方法。 基本流程举一个例子，比如我们如何判断西瓜的好坏？假设我们有10个西瓜，这10个西瓜就是我们的样本集$D$。西瓜还有特征，比如色泽如何，根蒂如何，敲声如何等，这些就是我们的特征集$A$。假设色泽如何为特征$A_1$, 则$A_1$有三个特征值可以取分别是">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ML-决策树">
 <meta property="og:url" content="https://haofengsiji.github.io/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/index.html">
 <meta property="og:site_name" content="好风四季的博客">
-<meta property="og:description" content="决策树(decision tree) 是根据已知情况的发生概率，构建树形结构的决策和他们可能的结果，来评价项目的风险，判断其可行性的决策分析方法。 基本流程举一个例子，比如我们如何判断西瓜的好坏？假设我们有10个西瓜，这10个西瓜就是我们的样本集$D$。西瓜还有特征，比如色泽如何，根蒂如何，敲声如何等，这些就是我们的特征集$A$。假设色泽如何为特征$A1$, 则$A_1$有三个特征值可以取分别是，">
+<meta property="og:description" content="决策树(decision tree) 是根据已知情况的发生概率，构建树形结构的决策和他们可能的结果，来评价项目的风险，判断其可行性的决策分析方法。 基本流程举一个例子，比如我们如何判断西瓜的好坏？假设我们有10个西瓜，这10个西瓜就是我们的样本集$D$。西瓜还有特征，比如色泽如何，根蒂如何，敲声如何等，这些就是我们的特征集$A$。假设色泽如何为特征$A_1$, 则$A_1$有三个特征值可以取分别是">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://haofengsiji.github.io/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/image-20200127103310548.png">
 <meta property="og:image" content="https://haofengsiji.github.io/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/image-20200127103601553.png">
@@ -103,7 +103,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>决策树(decision tree) 是根据已知情况的发生概率，构建树形结构的决策和他们可能的结果，来评价项目的风险，判断其可行性的决策分析方法。</p>
-<h2 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h2><p>举一个例子，比如我们如何判断西瓜的好坏？假设我们有10个西瓜，这10个西瓜就是我们的<strong>样本集</strong>$D$。西瓜还有特征，比如色泽如何，根蒂如何，敲声如何等，这些就是我们的<strong>特征集</strong>$A$。假设色泽如何为<strong>特征</strong>$A<em>1$, 则$A_1$有三个特征值可以取分别是，$a</em>{11}$:乌黑，$a<em>{12}$:青绿，$a</em>{13}$:浅白。$a_{1n}$ 即为特征$A_1$可取的值。样本集中是样本，比如某一个西瓜为样本$D_1{x,y}$, $x$ 是西瓜的<strong>特征向量</strong>，描述西瓜的特征，$y$则是西瓜的标签（是好瓜，还是坏瓜）。 最终根据已知情况的发生概率，我们可以得出一个西瓜决策树：</p>
+<h2 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h2><p>举一个例子，比如我们如何判断西瓜的好坏？假设我们有10个西瓜，这10个西瓜就是我们的<strong>样本集</strong>$D$。西瓜还有特征，比如色泽如何，根蒂如何，敲声如何等，这些就是我们的<strong>特征集</strong>$A$。假设色泽如何为<strong>特征</strong>$A_1$, 则$A_1$有三个特征值可以取分别是，$a_{11}$:乌黑，$a_{12}$:青绿，$a_{13}$:浅白。$a_{1n}$ 即为特征$A_1$可取的值。样本集中是样本，比如某一个西瓜为样本$D_1\{x,y\}$, $x$ 是西瓜的<strong>特征向量</strong>，描述西瓜的特征，$y$则是西瓜的标签（是好瓜，还是坏瓜）。 最终根据已知情况的发生概率，我们可以得出一个西瓜决策树：</p>
 <p><img src="/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/image-20200127103310548.png" alt="image-20200127103310548"></p>
 <p>具体如何操作呢，下面便是算法流程，运用的算法思想是分而治之(divide-and-conquer)(ps:所以分而治之的算法很重要，我第一次面试的时候，还不知道这个算法)。</p>
 <p><img src="/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/image-20200127103601553.png" alt="image-20200127103601553"></p>
@@ -147,7 +147,7 @@ I(X ; Y)=H(X)-H(X | Y)</script><p>没错，就是A的熵减去B条件下A的熵�
 </ol>
 <p>对于以上问题，昆兰提出了CD4.5做出优化，为什么不叫ID呢，因为ID3一出，过于火爆，很快就有人把ID4.0,ID5.0占了，昆兰另辟蹊径取名CD4.0，CD4.5是CD4.0的改进版。</p>
 <h2 id="CD4-5"><a href="#CD4-5" class="headerlink" title="CD4.5"></a>CD4.5</h2><p>对于第一个问题，如何解决连续值的问题？</p>
-<p>​    昆兰将连续特征离散化，比如有m个样本，将样本按照连续值排序后，连续值为a1,a2,…,am，我们每次取两个做一次划分点，$T<em>{i}=\frac{a</em>{i}+a_{i+1}}{2}$，则会得到m-1个划分点。对于这m-1个点，分别计算以该点作为二元分类点时的信息增益。选择信息增益最大的点作为该连续特征的二元离散分类点。要注意的是，与离散属性不同的是，如果当前节点为连续属性，则该属性后面还可以参与子节点的产生选择过程。</p>
+<p>​    昆兰将连续特征离散化，比如有m个样本，将样本按照连续值排序后，连续值为a1,a2,…,am，我们每次取两个做一次划分点，$T_{i}=\frac{a_{i}+a_{i+1}}{2}$，则会得到m-1个划分点。对于这m-1个点，分别计算以该点作为二元分类点时的信息增益。选择信息增益最大的点作为该连续特征的二元离散分类点。要注意的是，与离散属性不同的是，如果当前节点为连续属性，则该属性后面还可以参与子节点的产生选择过程。</p>
 <p>对于第二个问题，如何解决使用信息增益带来的问题？</p>
 <p>​    既然特征的值的数量会对我们选取特征产生偏见，那我们就消除特征值的数量带来的偏见。用信息增益除以特征熵。特征值越多，特征熵就越大，这样我们就消除了特征值的数量带来的影响。</p>
 <p><strong>信息增益比公式</strong>：</p>
@@ -174,7 +174,7 @@ I(X ; Y)=H(X)-H(X | Y)</script><p>没错，就是A的熵减去B条件下A的熵�
 \operatorname{Gini}(p)=\sum_{k=1}^{K} p_{k}\left(1-p_{k}\right)=1-\sum_{k=1}^{K} p_{k}^{2}</script><p>特别的，对于样本D,如果根据特征A的某个值a,把D分成D1和D2两部分，则在特征A的条件下，D的基尼系数：</p>
 <script type="math/tex; mode=display">
 \operatorname{Gini}(D, A)=\frac{\left|D_{1}\right|}{|D|} \operatorname{Gini}\left(D_{1}\right)+\frac{\left|D_{2}\right|}{|D|} \operatorname{Gini}\left(D_{2}\right)</script><h2 id="连续特征，离散特征的处理"><a href="#连续特征，离散特征的处理" class="headerlink" title="连续特征，离散特征的处理"></a>连续特征，离散特征的处理</h2><p>对于CART分类树连续值的处理问题，其思想和C4.5是相同的，都是将连续的特征离散化。唯一的区别在于在选择划分点时的度量方式不同，C4.5使用的是信息增益，则CART分类树使用的是基尼系数。</p>
-<p>具体的思路如下，比如m个样本的连续特征A有m个，从小到大排列为a1,a2,…,am,则CART算法取相邻两样本值的中位数，一共取得m-1个划分点，其中第i个划分点Ti表示为：$T<em>{i}=\frac{a</em>{i}+a_{i+1}}{2}$。对于这m-1个点，分别计算以该点作为二元分类点时的基尼系数。选择基尼系数最小的点作为该连续特征的二元离散分类点。比如取到的基尼系数最小的点为at,则小于at的值为类别1，大于at的值为类别2，这样我们就做到了连续特征的离散化。要注意的是，与离散属性不同的是，如果当前节点为连续属性，则该属性后面还可以参与子节点的产生选择过程。</p>
+<p>具体的思路如下，比如m个样本的连续特征A有m个，从小到大排列为a1,a2,…,am,则CART算法取相邻两样本值的中位数，一共取得m-1个划分点，其中第i个划分点Ti表示为：$T_{i}=\frac{a_{i}+a_{i+1}}{2}$。对于这m-1个点，分别计算以该点作为二元分类点时的基尼系数。选择基尼系数最小的点作为该连续特征的二元离散分类点。比如取到的基尼系数最小的点为at,则小于at的值为类别1，大于at的值为类别2，这样我们就做到了连续特征的离散化。要注意的是，与离散属性不同的是，如果当前节点为连续属性，则该属性后面还可以参与子节点的产生选择过程。</p>
 <p>对于CART分类树离散值的处理问题，采用的思路是不停的二分离散特征。</p>
 <p>回忆下ID3或者C4.5，如果某个特征A被选取建立决策树节点，如果它有A1,A2,A3三种类别，我们会在决策树上一下建立一个三叉的节点。这样导致决策树是多叉树。但是CART分类树使用的方法不同，他采用的是不停的二分，还是这个例子，CART分类树会考虑把A分成{A1}和{A2,A3},{A2}和{A1,A3},{A3}和{A1,A2}三种情况，找到基尼系数最小的组合，比如{A2}和{A1,A3},然后建立二叉树节点，一个节点是A2对应的样本，另一个节点是{A1,A3}对应的节点。从描述可以看出，如果离散特征A有n个取值，则可能的组合有n(n-1)/2种。同时，由于这次没有把特征A的取值完全分开，后面我们还有机会在子节点继续选择到特征A来划分A1和A3。这和ID3或者C4.5不同，在ID3或者C4.5的一棵子树中，离散特征只会参与一次节点的建立。</p>
 <h3 id="CART回归树"><a href="#CART回归树" class="headerlink" title="CART回归树"></a>CART回归树</h3><p>CART回归树和CART分类树的建立算法大部分是类似的，所以这里我们只讨论CART回归树和CART分类树的建立算法不同的地方。</p>
@@ -191,7 +191,7 @@ I(X ; Y)=H(X)-H(X | Y)</script><p>没错，就是A的熵减去B条件下A的熵�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://haofengsiji.github.io/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/" data-id="ck9o8b0lg000498w48ze92oq2" class="article-share-link">Share</a>
+      <a data-url="https://haofengsiji.github.io/2020/01/27/%E5%86%B3%E7%AD%96%E6%A0%91/" data-id="ck9xoy85w000beww45ugkcolg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ML/" rel="tag">ML</a></li></ul>
@@ -336,7 +336,7 @@ I(X ; Y)=H(X)-H(X | Y)</script><p>没错，就是A的熵减去B条件下A的熵�
 
   </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
-  MathJax.Hub.Config("");
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script>
 
 <script type="text/x-mathjax-config">
@@ -348,7 +348,7 @@ I(X ; Y)=H(X)-H(X | Y)</script><p>没错，就是A的熵减去B条件下A的熵�
   });
 </script>
 
-<script type="text/javascript" src="">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
 </script>
 <!-- End: Injected MathJax -->
 <!-- hexo-inject:end -->
