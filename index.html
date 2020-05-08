@@ -153,6 +153,81 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://haofengsiji.github.io/2020/05/08/Kaggle-Courses-NLP-2-Text-Binary-Classification/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="XZF">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="好风四季的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/08/Kaggle-Courses-NLP-2-Text-Binary-Classification/" class="post-title-link" itemprop="url">Kaggle Courses: NLP 2: Text Binary Classification</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-05-08 21:57:27 / Modified: 22:16:08" itemprop="dateCreated datePublished" datetime="2020-05-08T21:57:27+08:00">2020-05-08</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="构建输入数据"><a href="#构建输入数据" class="headerlink" title="构建输入数据"></a>构建输入数据</h2><p>数据格式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">train_texts = spam[<span class="string">'text'</span>].values</span><br><span class="line">train_labels = [&#123;<span class="string">'cats'</span>: &#123;<span class="string">'ham'</span>: label == <span class="string">'ham'</span>,</span><br><span class="line">                          <span class="string">'spam'</span>: label == <span class="string">'spam'</span>&#125;&#125; </span><br><span class="line">                <span class="keyword">for</span> label <span class="keyword">in</span> spam[<span class="string">'label'</span>]]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">train_data = list(zip(train_texts, train_labels))</span><br><span class="line">train_data[:<span class="number">3</span>]</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/05/08/Kaggle-Courses-NLP-2-Text-Binary-Classification/image-20200508220204055.png" alt="image-20200508220204055"  /></p>
+<h2 id="构建一个简单的线性模型"><a href="#构建一个简单的线性模型" class="headerlink" title="构建一个简单的线性模型"></a>构建一个简单的线性模型</h2><p>构建网络</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> spacy</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create an empty model</span></span><br><span class="line">nlp = spacy.blank(<span class="string">"en"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create the TextCategorizer with exclusive classes and "bow" architecture</span></span><br><span class="line">textcat = nlp.create_pipe(</span><br><span class="line">              <span class="string">"textcat"</span>,</span><br><span class="line">              config=&#123;</span><br><span class="line">                <span class="string">"exclusive_classes"</span>: <span class="literal">True</span>,</span><br><span class="line">                <span class="string">"architecture"</span>: <span class="string">"bow"</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add the TextCategorizer to the empty model</span></span><br><span class="line">nlp.add_pipe(textcat)</span><br></pre></td></tr></table></figure>
+<p>bow 的网络结构我并不清楚</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Add labels to text classifier</span></span><br><span class="line">textcat.add_label(<span class="string">"ham"</span>)</span><br><span class="line">textcat.add_label(<span class="string">"spam"</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h3><p>1个epoch</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> spacy.util <span class="keyword">import</span> minibatch</span><br><span class="line"></span><br><span class="line">spacy.util.fix_random_seed(<span class="number">1</span>)</span><br><span class="line">optimizer = nlp.begin_training()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create the batch generator with batch size = 8</span></span><br><span class="line">batches = minibatch(train_data, size=<span class="number">8</span>)</span><br><span class="line"><span class="comment"># Iterate through minibatches</span></span><br><span class="line"><span class="keyword">for</span> batch <span class="keyword">in</span> batches:</span><br><span class="line">    <span class="comment"># Each batch is a list of (text, label) but we need to</span></span><br><span class="line">    <span class="comment"># send separate lists for texts and labels to update().</span></span><br><span class="line">    <span class="comment"># This is a quick way to split a list of tuples into lists</span></span><br><span class="line">    texts, labels = zip(*batch)</span><br><span class="line">    nlp.update(texts, labels, sgd=optimizer)</span><br></pre></td></tr></table></figure>
+<p>多个epoch</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">random.seed(<span class="number">1</span>)</span><br><span class="line">spacy.util.fix_random_seed(<span class="number">1</span>)</span><br><span class="line">optimizer = nlp.begin_training()</span><br><span class="line"></span><br><span class="line">losses = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">    random.shuffle(train_data)</span><br><span class="line">    <span class="comment"># Create the batch generator with batch size = 8</span></span><br><span class="line">    batches = minibatch(train_data, size=<span class="number">8</span>)</span><br><span class="line">    <span class="comment"># Iterate through minibatches</span></span><br><span class="line">    <span class="keyword">for</span> batch <span class="keyword">in</span> batches:</span><br><span class="line">        <span class="comment"># Each batch is a list of (text, label) but we need to</span></span><br><span class="line">        <span class="comment"># send separate lists for texts and labels to update().</span></span><br><span class="line">        <span class="comment"># This is a quick way to split a list of tuples into lists</span></span><br><span class="line">        texts, labels = zip(*batch)</span><br><span class="line">        nlp.update(texts, labels, sgd=optimizer, losses=losses)</span><br><span class="line">    print(losses)</span><br></pre></td></tr></table></figure>
+<h3 id="预测"><a href="#预测" class="headerlink" title="预测"></a>预测</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">texts = [<span class="string">"Are you ready for the tea party????? It's gonna be wild"</span>,</span><br><span class="line">         <span class="string">"URGENT Reply to this message for GUARANTEED FREE TEA"</span> ]</span><br><span class="line">docs = [nlp.tokenizer(text) <span class="keyword">for</span> text <span class="keyword">in</span> texts]</span><br><span class="line">    </span><br><span class="line"><span class="comment"># Use textcat to get the scores for each doc</span></span><br><span class="line">textcat = nlp.get_pipe(<span class="string">'textcat'</span>)</span><br><span class="line">scores, _ = textcat.predict(docs)</span><br><span class="line"></span><br><span class="line">print(scores)</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/05/08/Kaggle-Courses-NLP-2-Text-Binary-Classification/image-20200508221314460.png" alt="image-20200508221314460"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># From the scores, find the label with the highest score/probability</span></span><br><span class="line">predicted_labels = scores.argmax(axis=<span class="number">1</span>)</span><br><span class="line">print([textcat.labels[label] <span class="keyword">for</span> label <span class="keyword">in</span> predicted_labels])</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/05/08/Kaggle-Courses-NLP-2-Text-Binary-Classification/image-20200508221400754.png" alt="image-20200508221400754"></p>
+<p>一直很郁闷，怎么把学到的东西转化成对自己有用的东西。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://haofengsiji.github.io/2020/05/08/2020-5-8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -465,86 +540,6 @@ TF-IDF(t) = TF(t)*IDF(t)</script><h2 id="例子"><a href="#例子" class="header
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://haofengsiji.github.io/2020/05/02/%E5%A6%82%E4%BD%95%E6%B7%BB%E5%8A%A0%E8%AE%BF%E9%97%AE%E8%AE%A1%E6%95%B0%E5%99%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="XZF">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="好风四季的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/05/02/%E5%A6%82%E4%BD%95%E6%B7%BB%E5%8A%A0%E8%AE%BF%E9%97%AE%E8%AE%A1%E6%95%B0%E5%99%A8/" class="post-title-link" itemprop="url">如何添加访问计数器</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-05-02 22:20:49 / Modified: 22:21:42" itemprop="dateCreated datePublished" datetime="2020-05-02T22:20:49+08:00">2020-05-02</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>自己用的是一种最简单的方法，插入大佬写好的网页脚本，只需要两行代码。</p>
-<p>还有一种方法是使用firebase后端数据库，暂时还不会配置…..</p>
-<ol>
-<li><p>首先引入不蒜子的脚本 busuanzi.js</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script <span class="keyword">async</span> src=<span class="string">"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"</span>&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
-<p>这个脚本的位置可以放在<strong>hexo</strong>项目路径下的<code>\themes\landscape\layout\_partial\footer.ejs</code> 文件中，找一个位置插入脚本</p>
-<p><img src="/2020/05/02/%E5%A6%82%E4%BD%95%E6%B7%BB%E5%8A%A0%E8%AE%BF%E9%97%AE%E8%AE%A1%E6%95%B0%E5%99%A8/image-20200502214924354.png" alt="image-20200502214924354" style="zoom:50%;" /></p>
-</li>
-<li><p>调用脚本id的返回值,得到想要的访问统计值，比如：</p>
-<p>站访问量：<code>id=&#39;busuanzi_value_site_pv&#39;</code></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;span id=<span class="string">"busuanzi_container_site_pv"</span>&gt;</span><br><span class="line">    本站总访问量&lt;span id=<span class="string">"busuanzi_value_site_pv"</span>&gt;&lt;<span class="regexp">/span&gt;次</span></span><br><span class="line"><span class="regexp">&lt;/</span>span&gt;</span><br></pre></td></tr></table></figure>
-<p>站访客量：<code>id=&quot;busuanzi_container_site_uv&quot;</code></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;span id=<span class="string">"busuanzi_container_site_uv"</span>&gt;</span><br><span class="line">  本站访客数&lt;span id=<span class="string">"busuanzi_value_site_uv"</span>&gt;&lt;<span class="regexp">/span&gt;人次</span></span><br><span class="line"><span class="regexp">&lt;/</span>span&gt;</span><br></pre></td></tr></table></figure>
-<p>页访问量: <code>id=&quot;busuanzi_container_page_pv&quot;</code></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;span id=<span class="string">"busuanzi_container_page_pv"</span>&gt;</span><br><span class="line">  本文总阅读量&lt;span id=<span class="string">"busuanzi_value_page_pv"</span>&gt;&lt;<span class="regexp">/span&gt;次</span></span><br><span class="line"><span class="regexp">&lt;/</span>span&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>总之一个脚本代码，一个显示，可以找到<code>layout\</code>文件下的任何位置插入。</p>
-<p>感慨一点，有时候觉得网上的大佬封装的太厉害，好多东西都是包装好了，感觉学到的东西太少了。</p>
-<p><strong>Reference:</strong></p>
-<p><a href="http://bryanyzhu.github.io/2015/12/17/all_about_hexo_III/" target="_blank" rel="noopener">http://bryanyzhu.github.io/2015/12/17/all_about_hexo_III/</a></p>
-<p><a href="http://ibruce.info/2015/04/04/busuanzi/" target="_blank" rel="noopener">http://ibruce.info/2015/04/04/busuanzi/</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -614,7 +609,7 @@ TF-IDF(t) = TF(t)*IDF(t)</script><h2 id="例子"><a href="#例子" class="header
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
