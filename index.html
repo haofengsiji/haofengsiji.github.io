@@ -153,6 +153,90 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://haofengsiji.github.io/2020/05/09/Kaggle-Crs-NLP-3-word2vec/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="XZF">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="好风四季的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/09/Kaggle-Crs-NLP-3-word2vec/" class="post-title-link" itemprop="url">Kaggle Crs: NLP 3 word2vec</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-05-09 22:12:44 / Modified: 22:43:32" itemprop="dateCreated datePublished" datetime="2020-05-09T22:12:44+08:00">2020-05-09</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>只介绍怎么使用spacy得到word embedding。</p>
+<p>word 可转换为 vector 向量表示，同语义的词，空间距离相近。</p>
+<p><img src="/2020/05/09/Kaggle-Crs-NLP-3-word2vec/image-20200509221739571.png" alt="image-20200509221739571"></p>
+<p>文本抽象，最简单的方法：可以用文本中所有word vectors的均值表示。</p>
+<h2 id="使用Spacy做word-embedding"><a href="#使用Spacy做word-embedding" class="headerlink" title="使用Spacy做word embedding"></a>使用Spacy做word embedding</h2><h3 id="1-加载模型"><a href="#1-加载模型" class="headerlink" title="1.加载模型"></a>1.加载模型</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> spacy</span><br><span class="line"></span><br><span class="line"><span class="comment"># Need to load the large model to get the vectors</span></span><br><span class="line">nlp = spacy.load(<span class="string">'en_core_web_lg'</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="2-处理得到vector"><a href="#2-处理得到vector" class="headerlink" title="2.处理得到vector"></a>2.处理得到vector</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Disabling other pipes because we don't need them and it'll speed up this part a bit</span></span><br><span class="line">text = <span class="string">"These vectors can be used as features for machine learning models."</span></span><br><span class="line"><span class="keyword">with</span> nlp.disable_pipes():</span><br><span class="line">    vectors = np.array([token.vector <span class="keyword">for</span> token <span class="keyword">in</span>  nlp(text)])</span><br></pre></td></tr></table></figure>
+<p>得到一个300维的向量，12 个单词（可能句号也算一个）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vectors.shape</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/05/09/Kaggle-Crs-NLP-3-word2vec/image-20200509222234341.png" alt="image-20200509222234341"></p>
+<h2 id="用word-vector-做文本分类"><a href="#用word-vector-做文本分类" class="headerlink" title="用word vector 做文本分类"></a>用word vector 做文本分类</h2><h3 id="1-加载数据"><a href="#1-加载数据" class="headerlink" title="1.加载数据"></a>1.加载数据</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="comment"># Loading the spam data</span></span><br><span class="line"><span class="comment"># ham is the label for non-spam messages</span></span><br><span class="line">spam = pd.read_csv(<span class="string">'../input/nlp-course/spam.csv'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> nlp.disable_pipes():</span><br><span class="line">    doc_vectors = np.array([nlp(text).vector <span class="keyword">for</span> text <span class="keyword">in</span> spam.text])</span><br><span class="line">    </span><br><span class="line">doc_vectors.shape</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/05/09/Kaggle-Crs-NLP-3-word2vec/image-20200509222536349.png" alt="image-20200509222536349"></p>
+<p>注意这里是取 <code>nlp().vector</code>，是取整个文本的向量；<code>token.vector</code>是词向量。</p>
+<h3 id="2-分类模型"><a href="#2-分类模型" class="headerlink" title="2.分类模型"></a>2.分类模型</h3><p>显然word embedding以后就成了一个数字表示的向量，这样的输入可以交给任意的机器学习模型，比如感知机，逻辑回归，SVM等，还可以作为图卷积（GCN）的输入。</p>
+<p>举例子用SVM</p>
+<p><strong>划分数据集</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"></span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(doc_vectors, spam.label,</span><br><span class="line">                                                    test_size=<span class="number">0.1</span>, random_state=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>训练</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> LinearSVC</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set dual=False to speed up training, and it's not needed</span></span><br><span class="line">svc = LinearSVC(random_state=<span class="number">1</span>, dual=<span class="literal">False</span>, max_iter=<span class="number">10000</span>)</span><br><span class="line">svc.fit(X_train, y_train)</span><br><span class="line">print(<span class="string">f"Accuracy: <span class="subst">&#123;svc.score(X_test, y_test) * <span class="number">100</span>:<span class="number">.3</span>f&#125;</span>%"</span>, )</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/05/09/Kaggle-Crs-NLP-3-word2vec/image-20200509223251663.png" alt="image-20200509223251663"></p>
+<h2 id="文本相似度，余弦距离"><a href="#文本相似度，余弦距离" class="headerlink" title="文本相似度，余弦距离"></a>文本相似度，余弦距离</h2><script type="math/tex; mode=display">
+\cos \theta=\frac{\mathbf{a} \cdot \mathbf{b}}{\|\mathbf{a}\|\|\mathbf{b}\|}</script><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cosine_similarity</span><span class="params">(a, b)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> a.dot(b)/np.sqrt(a.dot(a) * b.dot(b))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = nlp(<span class="string">"REPLY NOW FOR FREE TEA"</span>).vector</span><br><span class="line">b = nlp(<span class="string">"According to legend, Emperor Shen Nung discovered tea when leaves from a wild tree blew into his pot of boiling water."</span>).vector</span><br><span class="line">cosine_similarity(a, b)</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/05/09/Kaggle-Crs-NLP-3-word2vec/image-20200509223529334.png" alt="image-20200509223529334"></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.kaggle.com/matleonard/word-vectors" target="_blank" rel="noopener">https://www.kaggle.com/matleonard/word-vectors</a></p>
+<hr>
+<p>我尝试想哪些地方可以用到刚刚学到的东西，发现自己学的知识，都只是中间的一部分，如果真的能实际的用起来，需要一个完整的系统。对我来说，中文可能用的更多，spacy暂时还没有中文的模型，我得换百度的。我还需要自己收集数据，自己去标label, 至少得有500~1000个数据，如果自己要DIY的话。就算自己得到了一个模型，我还要根据具体的应用部署到终端。有点复杂，问题是自己还没想好有什么有趣又有点价值的东西，激励我打通任督二脉。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://haofengsiji.github.io/2020/05/08/Kaggle-Courses-NLP-2-Text-Binary-Classification/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -430,117 +514,6 @@ TF-IDF(t) = TF(t)*IDF(t)</script><h2 id="例子"><a href="#例子" class="header
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://haofengsiji.github.io/2020/05/03/Kaggle-Courses-Intro-to-NLP/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="XZF">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="好风四季的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/05/03/Kaggle-Courses-Intro-to-NLP/" class="post-title-link" itemprop="url">Kaggle Courses: Intro to NLP</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-05-03 16:41:56 / Modified: 18:10:04" itemprop="dateCreated datePublished" datetime="2020-05-03T16:41:56+08:00">2020-05-03</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>复习实在是太无聊了，搞点有趣的东西。看看怎么入门NLP，想做好一个分词统计的项目法语，英语，中文。正好自己也要去华为搞搜索相关的，也离不开NLP（就是不知道自己会不会被随机分岗位，先不管这么多了）。</p>
-<h2 id="Natural-Language-Processing"><a href="#Natural-Language-Processing" class="headerlink" title="Natural Language Processing"></a>Natural Language Processing</h2><p>想上kaggle上找点有趣的项目玩一玩，就点进这个课程了，上手起来也很轻松，很推荐。</p>
-<p>课程地址：<a href="https://www.kaggle.com/learn/natural-language-processing" target="_blank" rel="noopener">https://www.kaggle.com/learn/natural-language-processing</a></p>
-<h2 id="Intro-to-NLP"><a href="#Intro-to-NLP" class="headerlink" title="Intro to NLP"></a>Intro to NLP</h2><p>这节，主要介绍了如何使用NLP库，<a href="https://spacy.io/usage" target="_blank" rel="noopener">spaCy</a> （新大陆呀 :heart_eyes:！这个能处理好多种语言，分词可以用这个库！）去处理文本的中的字词匹配。</p>
-<h3 id="SpaCy-NLP"><a href="#SpaCy-NLP" class="headerlink" title="SpaCy NLP"></a>SpaCy NLP</h3><p>1.加载英文模型（语言模型需要另行下载，<code>python -m spacy download en_core_web_sm</code>, <a href="https://spacy.io/usage" target="_blank" rel="noopener">文档</a>）</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> spacy</span><br><span class="line">nlp = spacy.load(<span class="string">'en'</span>)</span><br></pre></td></tr></table></figure>
-<p>2.生成<code>doc</code>对象, spaCy处理文本都是对<code>doc</code>操作的</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">doc = nlp(<span class="string">"Tea is healthy and calming, don't you think?"</span>)</span><br></pre></td></tr></table></figure>
-<h3 id="词汇单元化（Tokenizing）"><a href="#词汇单元化（Tokenizing）" class="headerlink" title="词汇单元化（Tokenizing）"></a>词汇单元化（Tokenizing）</h3><p>迭代doc是以token为单位的</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> token <span class="keyword">in</span> doc:</span><br><span class="line">    print(token)</span><br></pre></td></tr></table></figure>
-<p><img src="/2020/05/03/Kaggle-Courses-Intro-to-NLP/image-20200503172211082.png" alt="image-20200503172211082" style="zoom:50%;" /></p>
-<h3 id="文本预处理"><a href="#文本预处理" class="headerlink" title="文本预处理"></a>文本预处理</h3><p>去掉stopword（such as <em>the</em>, <em>is</em>, <em>at</em>, <em>which</em>, and <em>on</em>. ），使用词的原型。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">f"Token \t\tLemma \t\tStopword"</span>.format(<span class="string">'Token'</span>, <span class="string">'Lemma'</span>, <span class="string">'Stopword'</span>))</span><br><span class="line">print(<span class="string">"-"</span>*<span class="number">40</span>)</span><br><span class="line"><span class="keyword">for</span> token <span class="keyword">in</span> doc:</span><br><span class="line">    print(<span class="string">f"<span class="subst">&#123;str(token)&#125;</span>\t\t<span class="subst">&#123;token.lemma_&#125;</span>\t\t<span class="subst">&#123;token.is_stop&#125;</span>"</span>)</span><br></pre></td></tr></table></figure>
-<p><img src="/2020/05/03/Kaggle-Courses-Intro-to-NLP/image-20200503171018744.png" style="zoom:50%;" /></p>
-<h3 id="模式匹配"><a href="#模式匹配" class="headerlink" title="模式匹配"></a>模式匹配</h3><p>3.使用<code>PhraseMatcher</code>创建<code>Matcher</code></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> spacy.matcher <span class="keyword">import</span> PhraseMatcher</span><br><span class="line">matcher = PhraseMatcher(nlp.vocab, attr=<span class="string">'LOWER'</span>)</span><br></pre></td></tr></table></figure>
-<p><code>attr=&#39;LOWER&#39;</code>不区分大小写</p>
-<p><a href="https://spacy.io/api/phrasematcher#init" target="_blank" rel="noopener">PhraseMatcher._ _ init _ _</a></p>
-<p>4.创建匹配对象 patterns</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">terms = [<span class="string">'Galaxy Note'</span>, <span class="string">'iPhone 11'</span>, <span class="string">'iPhone XS'</span>, <span class="string">'Google Pixel'</span>]</span><br><span class="line">patterns = [nlp(text) <span class="keyword">for</span> text <span class="keyword">in</span> terms]</span><br><span class="line">matcher.add(<span class="string">"TerminologyList"</span>, <span class="literal">None</span>, *patterns)</span><br></pre></td></tr></table></figure>
-<p><a href="https://spacy.io/api/phrasematcher#add" target="_blank" rel="noopener">PhraseMatcher.add</a></p>
-<p>matcher 添加规则（规则名，None, 模式）</p>
-<p>5.创建需要匹配的文本<code>doc</code></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Borrowed from https://daringfireball.net/linked/2019/09/21/patel-11-pro</span></span><br><span class="line">text_doc = nlp(<span class="string">"Glowing review overall, and some really interesting side-by-side "</span></span><br><span class="line">               <span class="string">"photography tests pitting the iPhone 11 Pro against the "</span></span><br><span class="line">               <span class="string">"Galaxy Note 10 Plus and last year’s iPhone XS and Google Pixel 3."</span>)</span><br></pre></td></tr></table></figure>
-<p>6.匹配</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">matches = matcher(text_doc)</span><br><span class="line">print(matches)</span><br></pre></td></tr></table></figure>
-<p><img src="/2020/05/03/Kaggle-Courses-Intro-to-NLP/image-20200503173829186.png" alt="image-20200503173829186"></p>
-<p>(match_id, start_ind, end_ind)</p>
-<p>7.match_id</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">match_id, start, end = matches[<span class="number">0</span>]</span><br><span class="line">print(nlp.vocab.strings[match_id], text_doc[start:end])</span><br></pre></td></tr></table></figure>
-<p><img src="/2020/05/03/Kaggle-Courses-Intro-to-NLP/image-20200503173942095.png" alt="image-20200503173942095"></p>
-<h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><p>处理餐厅评价数据，改善菜单，根据顾客们的评价更换评分低的菜品。</p>
-<h3 id="数据"><a href="#数据" class="headerlink" title="数据"></a><strong>数据</strong></h3><p><img src="/2020/05/03/Kaggle-Courses-Intro-to-NLP/image-20200503174157185.png" alt="image-20200503174157185"></p>
-<h3 id="我的答案"><a href="#我的答案" class="headerlink" title="我的答案"></a><strong>我的答案</strong></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> spacy</span><br><span class="line">nlp = spacy.load(<span class="string">'en'</span>)</span><br><span class="line"><span class="keyword">from</span> spacy.matcher <span class="keyword">import</span> PhraseMatcher</span><br><span class="line"></span><br><span class="line">RateDic = &#123;&#125;</span><br><span class="line"><span class="comment"># construct matcher</span></span><br><span class="line">matcher = PhraseMatcher(nlp.vocab, attr=<span class="string">'LOWER'</span>)</span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> menu:</span><br><span class="line">    matcher.add(item, <span class="literal">None</span>, nlp(item))</span><br><span class="line">    <span class="comment"># construct rating list</span></span><br><span class="line">    RateDic[item] = []</span><br><span class="line"><span class="comment"># scan comments</span></span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> range(data.shape[<span class="number">0</span>]):</span><br><span class="line">    <span class="comment"># find matches</span></span><br><span class="line">    matches = matcher(nlp(data[<span class="string">'text'</span>].iloc[row]))</span><br><span class="line">    <span class="comment"># update rate list</span></span><br><span class="line">    names = [nlp.vocab.strings[matche[<span class="number">0</span>]] <span class="keyword">for</span> matche <span class="keyword">in</span> matches]</span><br><span class="line">    <span class="keyword">for</span> name <span class="keyword">in</span> names:</span><br><span class="line">        RateDic[name].append(data[<span class="string">'stars'</span>].iloc[row])</span><br></pre></td></tr></table></figure>
-<p><strong>评价</strong>：</p>
-<ol>
-<li>命名还有差距</li>
-<li>dataFrame的迭代可以使用<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.iterrows.html" target="_blank" rel="noopener">pandas.DataFrame.iterrows</a>可以提升效率</li>
-<li>写的还是丑</li>
-</ol>
-<h3 id="官解"><a href="#官解" class="headerlink" title="官解"></a><strong>官解</strong></h3><h4 id="Step-2-Find-items-in-one-review-star"><a href="#Step-2-Find-items-in-one-review-star" class="headerlink" title="Step 2: Find items in one review :star:"></a><strong>Step 2: Find items in one review</strong> :star:</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> spacy</span><br><span class="line"><span class="keyword">from</span> spacy.matcher <span class="keyword">import</span> PhraseMatcher</span><br><span class="line"></span><br><span class="line">index_of_review_to_test_on = <span class="number">14</span></span><br><span class="line">text_to_test_on = data.text.iloc[index_of_review_to_test_on]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Load the SpaCy model</span></span><br><span class="line">nlp = spacy.blank(<span class="string">'en'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create the tokenized version of text_to_test_on</span></span><br><span class="line">review_doc = nlp(text_to_test_on)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create the PhraseMatcher object. The tokenizer is the first argument. Use attr = 'LOWER' to make consistent capitalization</span></span><br><span class="line">matcher = PhraseMatcher(nlp.vocab, attr=<span class="string">'LOWER'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create a list of tokens for each item in the menu</span></span><br><span class="line">menu_tokens_list = [nlp(item) <span class="keyword">for</span> item <span class="keyword">in</span> menu]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add the item patterns to the matcher. </span></span><br><span class="line"><span class="comment"># Look at https://spacy.io/api/phrasematcher#add in the docs for help with this step</span></span><br><span class="line"><span class="comment"># Then uncomment the lines below </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># </span></span><br><span class="line">matcher.add(<span class="string">"MENU"</span>,            <span class="comment"># Just a name for the set of rules we're matching to</span></span><br><span class="line">            <span class="literal">None</span>,              <span class="comment"># Special actions to take on matched words</span></span><br><span class="line">            *menu_tokens_list</span><br><span class="line">           )</span><br><span class="line"></span><br><span class="line"><span class="comment"># Find matches in the review_doc</span></span><br><span class="line">matches = matcher(review_doc)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Uncomment to check your work</span></span><br><span class="line">q_2.check()</span><br></pre></td></tr></table></figure>
-<p><img src="/2020/05/03/Kaggle-Courses-Intro-to-NLP/image-20200503174732891.png" alt="image-20200503174732891"></p>
-<h4 id="Step-3-Matching-on-the-whole-dataset"><a href="#Step-3-Matching-on-the-whole-dataset" class="headerlink" title="Step 3: Matching on the whole dataset"></a><strong>Step 3: Matching on the whole dataset</strong></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict</span><br><span class="line"></span><br><span class="line"><span class="comment"># item_ratings is a dictionary of lists. If a key doesn't exist in item_ratings,</span></span><br><span class="line"><span class="comment"># the key is added with an empty list as the value.</span></span><br><span class="line">item_ratings = defaultdict(list)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> idx, review <span class="keyword">in</span> data.iterrows():</span><br><span class="line">    doc = nlp(review[<span class="string">'text'</span>])</span><br><span class="line">    <span class="comment"># Using the matcher from the previous exercise</span></span><br><span class="line">    matches = matcher(doc)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Create a set of the items found in the review text</span></span><br><span class="line">    found_items = &#123;doc[start_idx:end_idx] <span class="keyword">for</span> (_, start_idx, end_idx) <span class="keyword">in</span> matches&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Update item_ratings with rating for each item in found_items</span></span><br><span class="line">    <span class="comment"># Transform the item strings to lowercase to make it case insensitive</span></span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> found_items:</span><br><span class="line">        item_ratings[item.text.lower()].append(review[<span class="string">'stars'</span>])</span><br></pre></td></tr></table></figure>
-<h4 id="Step-4-What’s-the-worst-reviewed-item"><a href="#Step-4-What’s-the-worst-reviewed-item" class="headerlink" title="Step 4: What’s the worst reviewed item?"></a>Step 4: What’s the worst reviewed item?</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Calculate the mean ratings for each menu item as a dictionary</span></span><br><span class="line">mean_ratings = &#123;key:sum(item_ratings[key])/len(item_ratings[key]) <span class="keyword">for</span> key <span class="keyword">in</span> item_ratings&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Find the worst item, and write it as a string in worst_text. This can be multiple lines of code if you want.</span></span><br><span class="line">worst_item = sorted(mean_ratings, key=mean_ratings.get)[<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
-<p><img src="/2020/05/03/Kaggle-Courses-Intro-to-NLP/image-20200503175005548.png" alt="image-20200503175005548"></p>
-<h4 id="Step-5-Are-counts-important-here"><a href="#Step-5-Are-counts-important-here" class="headerlink" title="Step 5: Are counts important here?"></a>Step 5: Are counts important here?</h4><p><img src="/2020/05/03/Kaggle-Courses-Intro-to-NLP/image-20200503175044442.png" alt="image-20200503175044442" style="zoom:50%;" /></p>
-<p>评价数量少的结果，并不可信。</p>
-<p><img src="/2020/05/03/Kaggle-Courses-Intro-to-NLP/image-20200503175213261.png" alt="image-20200503175213261"></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict</span><br><span class="line"></span><br><span class="line"><span class="comment"># item_ratings is a dictionary of lists. If a key doesn't exist in item_ratings,</span></span><br><span class="line"><span class="comment"># the key is added with an empty list as the value.</span></span><br><span class="line">item_ratings = defaultdict(list)</span><br></pre></td></tr></table></figure>
-<p><code>from collections import defaultdict</code>, 很漂亮</p>
-<p><code>item.text.lower()</code> 可以将字符串转小写</p>
-<p><code>mean_ratings = {key:sum(item_ratings[key])/len(item_ratings[key]) for key in item_ratings}</code> 也可以生成字典</p>
-<p>写的好多呀，自己也很纠结，到底是给别人做分享呢，还是自己用来复习。以后还是直接就给个链接，精简一些，供自己复习用吧，写的太多了。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -610,7 +583,7 @@ TF-IDF(t) = TF(t)*IDF(t)</script><h2 id="例子"><a href="#例子" class="header
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
