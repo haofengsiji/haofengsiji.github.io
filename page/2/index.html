@@ -153,6 +153,89 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://haofengsiji.github.io/2020/05/07/TF-IDF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/finn.gif">
+      <meta itemprop="name" content="XZF">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="好风四季的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/07/TF-IDF/" class="post-title-link" itemprop="url">TF-IDF</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-05-07 23:17:49" itemprop="dateCreated datePublished" datetime="2020-05-07T23:17:49+08:00">2020-05-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-05-08 14:42:51" itemprop="dateModified" datetime="2020-05-08T14:42:51+08:00">2020-05-08</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="firestore-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>文本量化，可以用到TF-IDF</p>
+<h2 id="意义"><a href="#意义" class="headerlink" title="意义"></a>意义</h2><p>用于信息提取和文本挖掘</p>
+<p>评估一个单词在语料库中对于一个文件的重要性</p>
+<p>重要性正比与被<strong>词语出现在语料库中的次数</strong>矫正后的<strong>词语出现的次数</strong></p>
+<h2 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h2><p>TF: Term Frequency</p>
+<script type="math/tex; mode=display">
+TF(t) = (词语t在文本中出现的次数) / (文本中所有词语的数量).</script><p>IDF: Inverse Documents frequency</p>
+<script type="math/tex; mode=display">
+IDF(t) = log_e(语料库中所有文本的数量 / 词语t在语料库中出现的次数).</script><p>公式：</p>
+<script type="math/tex; mode=display">
+TF-IDF(t) = TF(t)*IDF(t)</script><h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>一个100字文本中“猫”出现了3次，TF = 3/100 =0.03。假设语料库有10,000,000个文本，“猫”总共出现了1000次。那么 IDF= log_e(10,000,000/1000) = 4。那么 TF-IDF = 0.03*4 = 0.12。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://www.tfidf.com/" target="_blank" rel="noopener">http://www.tfidf.com/</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://haofengsiji.github.io/2020/05/03/Kaggle-Courses-Intro-to-NLP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -670,103 +753,6 @@ I(X ; Y)=H(X)-H(X | Y)</script><p>没错，就是A的熵减去B条件下A的熵�
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://haofengsiji.github.io/2020/01/26/leetcode-week173/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/finn.gif">
-      <meta itemprop="name" content="XZF">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="好风四季的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/26/leetcode-week173/" class="post-title-link" itemprop="url">leetcode-week173</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-01-26 12:52:39 / Modified: 13:21:14" itemprop="dateCreated datePublished" datetime="2020-01-26T12:52:39+08:00">2020-01-26</time>
-            </span>
-
-          
-            <span class="post-meta-item" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-users"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="firestore-visitors-count"></span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>比较菜，还是依然只做出两道题，而且第二道提交的时候，已经结束3分钟了，很是遗憾。第一题删除回文字符没有读清楚题，做复杂了。第二题虽然没有提交，但还是有很大收获，更深入学习了<code>sort()</code>函数的用法</p>
-<h2 id="5319-删除回文子序列"><a href="#5319-删除回文子序列" class="headerlink" title="5319. 删除回文子序列"></a><a href="https://leetcode-cn.com/problems/remove-palindromic-subsequences/" target="_blank" rel="noopener">5319. 删除回文子序列</a></h2><p><strong>题目描述：</strong></p>
-<p><img src="/2020/01/26/leetcode-week173/image-20200126125705629.png" alt="image-20200126125705629"></p>
-<p><strong>分析：</strong></p>
-<p>这道题是简单题，注意只有两个字母，还有子序列的定义，子序列的组成是可以不连续的，比如：</p>
-<p><img src="/2020/01/26/leetcode-week173/image-20200126125938432.png" alt="image-20200126125938432"></p>
-<p><strong>我的做法：</strong></p>
-<p>我提交了8次，因为我把想复杂了，我按leetcode 5.最长回文字符串来做了,使用动态规划来做，每次删除最长的回文字符串。但其实这道题就3种简单情况：</p>
-<ol>
-<li>s 为空——输出为：0</li>
-<li>s 本身为回文——输出为：1</li>
-<li>s 本身不是回文——输出为：2</li>
-</ol>
-<p>为啥s本身不是回文，输出为2。第一步删除所有的 <strong>a</strong>，第二步删除所有的 <strong>b</strong>，就结束了。</p>
-<p><strong>我的答案：</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">removePalindromeSub</span><span class="params">(self, s: str)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> s == <span class="string">''</span>: <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">delete</span><span class="params">(s)</span>:</span></span><br><span class="line">            n = len(s)</span><br><span class="line">            dp = [[<span class="literal">False</span> <span class="keyword">for</span> _ <span class="keyword">in</span> range(n)] <span class="keyword">for</span> _ <span class="keyword">in</span> range(n)]</span><br><span class="line">            max_sub = <span class="number">0</span></span><br><span class="line">            r_j = <span class="number">0</span></span><br><span class="line">            r_i = <span class="number">0</span></span><br><span class="line">            <span class="comment"># 1</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(n): </span><br><span class="line">                dp[i][i] = <span class="literal">True</span></span><br><span class="line">            <span class="comment"># 2</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(n<span class="number">-1</span>):</span><br><span class="line">                dp[i][i+<span class="number">1</span>] = <span class="literal">True</span> <span class="keyword">if</span> s[i] == s[i+<span class="number">1</span>] <span class="keyword">else</span> <span class="literal">False</span></span><br><span class="line">                </span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(n):</span><br><span class="line">                <span class="keyword">for</span> i <span class="keyword">in</span> range(j):</span><br><span class="line">                    <span class="keyword">if</span> j - i + <span class="number">1</span> &lt;= <span class="number">2</span>:</span><br><span class="line">                        <span class="keyword">continue</span></span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        <span class="keyword">if</span> s[i] == s[j]:</span><br><span class="line">                            dp[i][j] = dp[i+<span class="number">1</span>][j<span class="number">-1</span>]</span><br><span class="line">                        <span class="keyword">else</span>:</span><br><span class="line">                            dp[i][j] = <span class="literal">False</span></span><br><span class="line">                    <span class="keyword">if</span> dp[i][j] == <span class="literal">True</span>:</span><br><span class="line">                        <span class="keyword">if</span> j - i + <span class="number">1</span>&gt; max_sub:</span><br><span class="line">                                max_sub = j - i + <span class="number">1</span></span><br><span class="line">                                r_j = j</span><br><span class="line">                                r_i = i</span><br><span class="line">            <span class="keyword">return</span> s[r_i:r_j+<span class="number">1</span>]</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> delete(s) == s:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">2</span></span><br></pre></td></tr></table></figure>
-<p><strong>比较不错的答案：</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">removePalindromeSub</span><span class="params">(self, s: str)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">not</span> s):</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span>(s == s[::<span class="number">-1</span>]):</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span></span><br><span class="line"></span><br><span class="line">作者：huli7926</span><br><span class="line">链接：https://leetcode-cn.com/problems/remove-palindromic-subsequences/solution/pythonxiao-bai-jie-fa-chao-guo<span class="number">-100</span>ti-jiao-by-huli7/</span><br><span class="line">来源：力扣（LeetCode）</span><br><span class="line">著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</span><br></pre></td></tr></table></figure>
-<p>我真是蠢了。</p>
-<h2 id="5319-删除回文子序列-1"><a href="#5319-删除回文子序列-1" class="headerlink" title="5319. 删除回文子序列"></a><a href="https://leetcode-cn.com/problems/remove-palindromic-subsequences/" target="_blank" rel="noopener">5319. 删除回文子序列</a></h2><p><strong>题目描述：</strong></p>
-<p><img src="/2020/01/26/leetcode-week173/image-20200126130954563.png" alt="image-20200126130954563"></p>
-<p><img src="/2020/01/26/leetcode-week173/image-20200126131131994.png" alt="image-20200126131131994"></p>
-<p><strong>分析：</strong></p>
-<p>一看到查找，我第一想法是用hash表查找，发现没办法构建字典，其实我依然想复杂了。直接用if else输出，符合过滤条件的候选餐厅。然后用<code>sort()</code>函数按题意进行排序。这里面我学习了，如何用<code>sort()</code>函数对outer list 以inner list的数据进行排序。算是这次比较大的收获。</p>
-<p><strong>我的答案：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def filterRestaurants(self, restaurants: List[List[int]], veganFriendly: int, maxPrice: int, maxDistance: int) -&gt; List[int]:</span><br><span class="line">        cand &#x3D; []</span><br><span class="line">        res_table &#x3D;&#123;&#125;</span><br><span class="line">        for res in restaurants:</span><br><span class="line">            if veganFriendly &#x3D;&#x3D; 0:</span><br><span class="line">                if res[3] &lt;&#x3D; maxPrice and res[4] &lt;&#x3D; maxDistance:</span><br><span class="line">                    cand.append([res[0],res[1]])</span><br><span class="line">            else:</span><br><span class="line">                if res[2] &#x3D;&#x3D; 1 and res[3] &lt;&#x3D; maxPrice and res[4] &lt;&#x3D; maxDistance:</span><br><span class="line">                    cand.append([res[0],res[1]])</span><br><span class="line">        cand.sort(key&#x3D;lambda x: (-x[1],-x[0]))</span><br><span class="line">        return [c[0] for c in cand]</span><br></pre></td></tr></table></figure>
-<h2 id="5321-阈值距离内邻居最少的城市"><a href="#5321-阈值距离内邻居最少的城市" class="headerlink" title="5321. 阈值距离内邻居最少的城市"></a><a href="https://leetcode-cn.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/" target="_blank" rel="noopener">5321. 阈值距离内邻居最少的城市</a></h2><p> <strong>题目描述：</strong></p>
-<p><img src="/2020/01/26/leetcode-week173/image-20200126131634607.png" alt="image-20200126131634607"></p>
-<p><img src="/2020/01/26/leetcode-week173/image-20200126131653781.png" alt="image-20200126131653781"></p>
-<p><strong>分析：</strong></p>
-<p>这道题呢，我不会。没有任何思路。</p>
-<p>查了一下，这道题的解法要用<strong>Floyd-Warshall算法</strong>求最短路径。改天学习一下这个算法</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -838,14 +824,14 @@ I(X ; Y)=H(X)-H(X | Y)</script><p>没错，就是A的熵减去B条件下A的熵�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
