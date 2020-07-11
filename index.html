@@ -176,10 +176,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-06-28 22:02:42 / Modified: 22:25:56" itemprop="dateCreated datePublished" datetime="2020-06-28T22:02:42+08:00">2020-06-28</time>
+              <time title="Created: 2020-06-28 22:02:42" itemprop="dateCreated datePublished" datetime="2020-06-28T22:02:42+08:00">2020-06-28</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-07-11 09:42:42" itemprop="dateModified" datetime="2020-07-11T09:42:42+08:00">2020-07-11</time>
+              </span>
 
           
             <span class="post-meta-item" title="Views">
@@ -207,8 +213,12 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">if</span> nums[mid] == x:</span><br><span class="line">    ans = mid</span><br><span class="line"><span class="keyword">elif</span> nums[mid] &gt; x:</span><br><span class="line">    ans = mid</span><br><span class="line">    high = mid - <span class="number">1</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">	low = mid + <span class="number">1</span></span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line"><span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
 <p>等同于=&gt;</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">if</span> nums[mid] &gt;= x:</span><br><span class="line">    ans = mid</span><br><span class="line">    high = mid - <span class="number">1</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">	low = mid + <span class="number">1</span></span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line"><span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
-<p>2.返回 最大的 &lt;=x 的值</p>
+<p>2.返回 最小的 &gt;x 的值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">if</span> nums[mid] &gt; x:</span><br><span class="line">    ans = mid</span><br><span class="line">    high = mid - <span class="number">1</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">	low = mid + <span class="number">1</span></span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line"><span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+<p>3.返回 最大的 &lt;=x 的值</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">if</span> nums[mid] &lt;= x:</span><br><span class="line">    ans = mid</span><br><span class="line">    low = mid + <span class="number">1</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">	high = mid - <span class="number">1</span></span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line"><span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+<p>4.返回 最大的 &lt;x 的值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">if</span> nums[mid] &lt; x:</span><br><span class="line">    ans = mid</span><br><span class="line">    low = mid + <span class="number">1</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">	high = mid - <span class="number">1</span></span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line"><span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
 
       
     </div>
